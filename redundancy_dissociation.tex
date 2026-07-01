@@ -2,6 +2,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
 \setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
@@ -75,6 +76,14 @@ raw $U_{\text{dec}}$ on the \emph{raw} (skewed) controls before Spearman gives n
 the standard rank-based partial Spearman on the identical arrays gives $-0.122$. The ``corrected zero''
 was itself a partialling artifact. We freeze the rank-based estimator and recompute all cells with it.
 
+\begin{figure}[h]\centering
+\includegraphics[width=0.62\linewidth]{fig_artifacts.pdf}
+\caption{The same near-pair data yields three different decoder-geometry headlines depending on two
+measurement choices: an unfloored ridge (pre-fix, the historically reported $+0.27$), residualizing the
+partial on raw skewed controls ($+0.001$), and the frozen rank-based partial Spearman ($-0.12$). Each
+choice alone is enough to invert the conclusion.}
+\end{figure}
+
 \section{What survives}
 \begin{table}[h]\centering
 \begin{tabular}{lcccc}
@@ -91,6 +100,22 @@ null $n{=}1000$. Every $U_{\text{dec}}$ cell and both non-null $U_{\text{overlap
 $[-0.04,+0.04]$ permutation band ($p=0.001$); the Gemma $U_{\text{overlap}}$ cell is inside it
 ($p=0.84$).}
 \end{table}
+
+\begin{figure}[h]\centering
+\includegraphics[width=0.78\linewidth]{fig_forest.pdf}
+\caption{The dissociation at a glance. Partial Spearman rho (95\% feature-bootstrap CI) of redundancy
+against each universality measure, across the three pairs; grey band is the permutation null. Every
+decoder-geometry point (red) is a small negative outside the null; the co-firing points (blue) are
+positive on the near and Mistral pairs and null on the Gemma pair. Sign depends on which universality is
+measured.}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=0.92\linewidth]{fig_scatter.pdf}
+\caption{Near-pair (GPT-2/Pythia) rank-residualized scatter: redundancy is weakly \emph{negatively}
+related to decoder-geometry universality (left) yet \emph{positively} related to co-firing universality
+(right), on the same features.}
+\end{figure}
 
 \textbf{Decoder geometry: a small, consistent negative - not zero, not the prior positive.} Across all
 three pairs redundancy is weakly \emph{anti}-associated with decoder-cosine universality
