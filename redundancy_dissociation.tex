@@ -5,139 +5,125 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
 \setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
-%% DRAFT. Target: BlackboxNLP 2026 (EMNLP-colocated), main track, deadline 2026-07-17.
-%% Before submission: swap to the BlackboxNLP/ACL style file, anonymize, run the remaining
-%% blocking experiments (alignment-null control, multi-layer sweep), and re-check the checklist.
-\title{\textbf{Within-Model Redundancy Predicts Co-firing but not Decoder-Geometry
-SAE Feature Universality: A Controlled Test of the Natural-Latent Prediction}}
+%% DRAFT. Target: BlackboxNLP 2026 Reproducibility & Reliability track, deadline 2026-07-17.
+%% Pre-registration + contracts frozen at git SHA 37a266f; numbers recomputable via recompute_partials.py.
+%% Before submit: swap to ACL style file, anonymize (this file already carries no identity), add
+%% Limitations + Ethics sections per the P7/P8 checklist.
+\title{\textbf{Two Measurement Artifacts in a Sparse-Autoencoder Feature-Universality Analysis,
+and What Survives}}
 \author{[anonymized for review]}
 \date{Draft \today}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Natural-latent theory predicts that features which are \emph{redundant} within a model (recoverable
-from disjoint parts of its activations) should be the ones that recur across independently trained
-models. We test this prediction directly on sparse-autoencoder (SAE) features, using a within-model
-redundancy score computed from one model's own activations with no access to a second model and no
-training. We find a \emph{dissociation} that depends entirely on how ``universality'' is measured.
-Under a \emph{decoder-geometry} measure (aligned cross-model decoder cosine), redundancy does
-\textbf{not} predict universality on any of three model pairs and is significantly \emph{negative} on
-two distant cross-family pairs (partial Spearman $\rho = -0.16$ and $-0.18$); a previously reported
-positive on a near pair does not survive a corrected estimator and is attributable to a numerical
-artifact. Under a \emph{co-firing} measure (top-context overlap), redundancy shows a positive
-association on two of three pairs ($\rho = +0.41$ and $+0.31$), but is null on the third. We conclude
-that within-model redundancy tracks \emph{behavioral} feature similarity in some regimes but not
-\emph{representational-geometry} similarity, and we caution against using it as a general
-cross-model transfer heuristic. All effects are reported as variance-explained with feature-bootstrap
-intervals and partials on activation frequency, magnitude, and decoder norm.
+We report a reliability study of a natural-latent prediction for sparse-autoencoder (SAE) features: that
+features which are \emph{redundant} within a model (recoverable from disjoint parts of its own
+activations) are the ones that transfer across independently trained models. In building the test we
+uncovered \emph{two} measurement artifacts, each of which flips or fabricates the headline. (1) On
+large-activation models an unfloored ridge $R^2$ diverges to $\sim{-}1.4\times10^{5}$ for low-variance
+features, producing a spurious \emph{positive} decoder-geometry correlation ($+0.27$). (2) After that is
+fixed, computing the partial correlation by residualizing on \emph{raw} skewed controls (rather than on
+ranks) fabricates a near-zero decoder result ($+0.001$) where the standard rank-based partial Spearman
+gives $-0.12$. Under a single frozen, reviewer-reproducible estimator, the surviving result is a
+\emph{dissociation}: within-model redundancy is weakly but consistently \emph{negatively} associated with
+decoder-geometry universality across three model pairs (partial $\rho\in[-0.17,-0.12]$, all outside a
+permutation null), yet \emph{positively} associated with co-firing universality on two of three pairs
+($\rho=+0.29,+0.17$; one null). We release per-feature arrays and a recompute script so every number
+regenerates on a CPU in seconds. The practical lesson: within-model redundancy is not a proxy for
+cross-model representational geometry, and interpretability correlation studies are dangerously sensitive
+to the ridge floor and the partialling convention.
 \end{abstract}
 
 \section{Introduction}
-Feature universality - the observation that independently trained networks learn overlapping features -
-is widely reported but under-explained: there is no accepted predictor of \emph{which} features should
-transfer. Natural-latent theory offers a candidate. A latent that is \emph{redundant} (recoverable from
-each of two disjoint parts of a system) and \emph{mediating} is provably stable across ontologies,
-hence a natural target for independently trained models to converge on. This motivates a testable
-operational claim: \emph{the SAE features whose activations are most redundant within a model should be
-the ones most likely to have a match in a different model.}
+Feature universality - independently trained networks learning overlapping features - is widely reported
+but lacks a predictor of \emph{which} features transfer. Natural-latent theory suggests one: redundant
+latents are stable across ontologies, so the most redundant SAE features should be the most universal.
+We set out to test this and instead learned a methods lesson. Two innocuous-looking choices in the
+measurement pipeline - whether the redundancy ridge $R^2$ is floored, and whether the partial correlation
+is taken on raw values or ranks - each independently manufacture a different headline from the same data.
+This paper documents both artifacts, freezes a single defensible estimator, and reports what survives.
+The contribution is a reliability result plus a modest, honestly scoped dissociation; it is not a
+universality law.
 
-We test this claim and report a negative-leaning, metric-dependent result. The contribution is not a new
-method but a controlled measurement: (i) under a decoder-geometry notion of universality the redundancy
-predictor fails, and a prior positive result is shown to be a harness artifact; (ii) under a co-firing
-notion of universality the predictor partially succeeds; (iii) the two conclusions come apart, so the
-choice of universality metric - not the redundancy score - drives the headline. This is directly useful
-to interpretability researchers testing the natural-abstraction hypothesis and to practitioners who
-might otherwise use cheap within-model redundancy as a transfer screen.
+\section{Measures (frozen)}
+\textbf{Redundancy} (predictor, computed on model A alone). Split A's residual stream into two disjoint
+halves by dimension parity; for feature $f$, $\mathrm{redundancy}(f)=\min(R^2_{L\to f}, R^2_{R\to f})$
+where $R^2_{H\to f}$ is the in-sample ridge $R^2$ predicting $f$'s activation on one half from a
+unit-variance PCA summary of the other half's residual, floored at $-1$. This uses no second model and no
+other SAE feature, so it cannot be circular with the co-firing target.
 
-\section{Method}
-\textbf{Redundancy score.} For each SAE feature $f$ we split the model's own residual activations into
-two disjoint halves and measure how well feature $f$'s activation on one half is recoverable, by ridge
-regression, from a PCA summary of the other half; the score is the minimum of the two directions,
-$\mathrm{redundancy\_R2}(f)=\min(R^2_{\text{left}}, R^2_{\text{right}})$. The regression $R^2$ is floored
-at $-1$ (values far below $-1$ indicate a diverged solve, not real un-recoverability); we return to this
-in Section~\ref{sec:artifact}. No second model is used.
+\textbf{Universality} (targets). Features are matched across models by a third channel (token-level
+max-activation correlation), then read two ways: $U_{\text{dec}}$, the aligned cross-model decoder cosine
+(with a shuffled-decoder baseline); $U_{\text{overlap}}$, the Jaccard overlap of top-context sets.
 
-\textbf{Two universality measures.} Given a second model with its own SAE, we score each feature's
-universality two ways. \emph{Decoder-geometry} $U_{\text{dec}}$: align the two decoder spaces and take
-the best cross-model decoder cosine, with a shuffled-decoder random baseline. \emph{Co-firing}
-$U_{\text{overlap}}$: the Jaccard overlap of the two features' top-activating contexts.
+\textbf{Statistic (frozen).} Partial Spearman: rank all variables, residualize $\mathrm{rank}(x)$ and
+$\mathrm{rank}(y)$ on the ranked controls $\{$frequency, magnitude, decoder norm$\}$ by OLS, and take the
+Pearson correlation of residuals. Uncertainty: feature-bootstrap $95\%$ CI ($n{=}1000$); a permutation
+null ($n{=}1000$, shuffling the predictor) sets the band a coefficient must exit to count.
 
-\textbf{Statistics.} We report \emph{partial} Spearman $\rho(\mathrm{redundancy\_R2}, U \mid
-\text{frequency}, \text{magnitude}, \text{decoder norm})$ for both measures, a position-shuffle null,
-and feature-bootstrap $95\%$ intervals. We report variance-explained ($\rho^2$) as the primary effect
-size rather than a $p$-value, given the large feature counts.
+\section{Two artifacts}
+\textbf{Artifact 1 - the ridge blow-up.} For a feature with a large mean and small residual variance,
+$R^2=1-\mathrm{ss\_res}/\mathrm{ss\_tot}$ has a tiny denominator, so an imperfect fit yields a huge
+negative value; on Gemma/Llama-scale activations the mean redundancy $R^2$ reached $\sim{-}1.4\times10^5$.
+These garbage scores correlated spuriously, giving a decoder-geometry $\rho=+0.27$ on the near pair.
+Flooring $R^2$ at $-1$ removes it; a regression test (\texttt{test\_harness\_bug.py}) fails pre-fix and
+passes post-fix.
 
-\textbf{Model pairs.} A near pair (GPT-2-small vs Pythia-70m-deduped, base models) and two distant
-cross-family pairs (Gemma-2-9b vs Llama-3.1-8B; Mistral-7B vs Llama-3.1-8B), each with pretrained SAEs
-from different SAE families. All runs use one corrected harness on GPU (Section~\ref{sec:artifact}).
+\textbf{Artifact 2 - the raw-control partial.} With the floor in place, residualizing raw redundancy and
+raw $U_{\text{dec}}$ on the \emph{raw} (skewed) controls before Spearman gives near-pair $\rho=+0.001$;
+the standard rank-based partial Spearman on the identical arrays gives $-0.122$. The ``corrected zero''
+was itself a partialling artifact. We freeze the rank-based estimator and recompute all cells with it.
 
-\section{A corrected harness}\label{sec:artifact}
-An earlier version of this analysis reported a positive redundancy-universality correlation on the near
-pair ($\rho \approx +0.27$ under the decoder measure). That number does not survive two corrections.
-First, on large-activation models the ridge recoverability $R^2$ diverged (mean $\approx -1.4\times10^5$)
-because the residual PCA basis was ill-conditioned; flooring $R^2$ and unit-variance-scaling the PCA
-components restores a sane score (mean redundancy $R^2 \in [0.06, 0.17]$ across pairs). Second, the
-decoder-space cross-model alignment must beat a shuffled-decoder baseline; under the corrected,
-frequency-partialled estimator the near-pair decoder correlation collapses to $\rho = +0.001$
-($p = 0.96$). We therefore treat all pre-correction numbers as artifacts and report only corrected runs.
-Every number below is from the corrected harness on GPU (device \texttt{cuda}), with the decoder measure
-verified to beat its random baseline.
-
-\section{Results}
+\section{What survives}
 \begin{table}[h]\centering
-\begin{tabular}{lcc}
+\begin{tabular}{lcccc}
 \toprule
-Model pair & Decoder-geometry $U_{\text{dec}}$ & Co-firing $U_{\text{overlap}}$ \\
- & partial $\rho$ (var.\ expl.) & partial $\rho$ (var.\ expl.) \\
+Model pair & $U_{\text{dec}}$ $\rho$ & 95\% CI & $U_{\text{overlap}}$ $\rho$ & 95\% CI \\
 \midrule
-GPT-2 / Pythia (near, same-family) & $+0.001$\ \ ($0\%$) & $+0.41$\ \ ($17\%$) \\
-Gemma-2-9b / Llama-3.1-8B (far) & $-0.16$\ \ ($2.6\%$) & $+0.02$\ \ ($0\%$) \\
-Mistral-7B / Llama-3.1-8B (far) & $-0.18$\ \ ($3.1\%$) & $+0.31$\ \ ($9\%$) \\
+GPT-2 / Pythia (near) & $-0.12$ & $[-0.16,-0.08]$ & $+0.29$ & $[+0.25,+0.33]$ \\
+Gemma-2-9b / Llama-3.1-8B (far) & $-0.17$ & $[-0.21,-0.13]$ & $+0.01$ & $[-0.03,+0.05]$ \\
+Mistral-7B / Llama-3.1-8B (far) & $-0.16$ & $[-0.20,-0.12]$ & $+0.17$ & $[+0.13,+0.21]$ \\
 \bottomrule
 \end{tabular}
-\caption{Partial Spearman $\rho$ of within-model redundancy against two universality measures,
-controlling for activation frequency, magnitude, and decoder norm. Decoder-geometry: null on the near
-pair, significantly negative on both far pairs. Co-firing: strong positive on the near pair and one far
-pair, null on the other. All $|\rho|$ small to moderate; see text for bootstrap intervals.}
+\caption{Frozen rank-based partial Spearman (controls: frequency, magnitude, decoder norm), permutation
+null $n{=}1000$. Every $U_{\text{dec}}$ cell and both non-null $U_{\text{overlap}}$ cells lie outside the
+$[-0.04,+0.04]$ permutation band ($p=0.001$); the Gemma $U_{\text{overlap}}$ cell is inside it
+($p=0.84$).}
 \end{table}
 
-\textbf{Decoder-geometry universality is not predicted by redundancy} (and is weakly anti-predicted at
-distance). The near-pair partial is indistinguishable from zero ($+0.001$), and both distant pairs are
-significantly negative ($-0.16$, $-0.18$; each feature-bootstrap $95\%$ interval excludes zero on the
-negative side). Redundancy explains at most $\sim$3\% of decoder-universality variance, in the wrong
-direction.
+\textbf{Decoder geometry: a small, consistent negative - not zero, not the prior positive.} Across all
+three pairs redundancy is weakly \emph{anti}-associated with decoder-cosine universality
+($\rho\in[-0.17,-0.12]$, $1.5$--$2.9\%$ variance), every CI excluding zero on the negative side, every
+coefficient outside the permutation null. The measure is alive (it beats its shuffled-decoder baseline in
+every run), so this is a real weak negative, not a dead measure.
 
-\textbf{Co-firing universality is partially predicted by redundancy.} The near pair shows a strong
-partial ($+0.41$, $\sim$17\% variance) and the Mistral/Llama far pair a moderate one ($+0.31$,
-$\sim$9\%); the Gemma/Llama pair is null ($+0.02$). So the positive is real but pair-dependent, not a
-universal law.
+\textbf{Co-firing: pair-dependent positive.} Redundancy predicts co-firing universality on the near pair
+($+0.29$) and one far pair ($+0.17$) but not the other ($+0.01$, inside the null). Because redundancy is
+defined on model A's residual stream alone, this positive is not a co-firing tautology.
 
-\textbf{The dissociation is the finding.} On the same features and the same redundancy score, the sign
-and significance of the ``does redundancy predict universality'' question flip with the universality
-metric. Redundancy tracks whether two features fire on the \emph{same inputs} (behavioral overlap) in
-some regimes, but not whether their decoder directions \emph{align in representation space}.
+\textbf{The dissociation.} On the same features and score, redundancy's relationship to universality has
+opposite sign under the two universality operationalizations: mildly negative for decoder geometry,
+positive (where present) for co-firing. Which ``universality'' you measure decides the answer.
 
 \section{Discussion}
-The natural-latent prediction, taken as a claim about representational geometry, fails here: the
-features a model can most redundantly recover from its own activations are not the ones whose decoder
-directions match a second model, and at cross-family distance they are slightly less likely to. The
-co-firing results show the redundancy signal is not vacuous - it aligns with behavioral similarity - but
-behavioral co-firing and geometric alignment are different things, and only the former is (sometimes)
-captured. For practitioners, the operational takeaway is negative: within-model redundancy is not a
-reliable cross-model transfer screen, especially across architectures.
+The natural-latent prediction, read as a claim about representational geometry, is falsified in a mild
+direction here: more-redundant features are, if anything, slightly \emph{less} likely to have an aligned
+decoder in a second model. The co-firing results show the redundancy signal is not vacuous - it tracks
+behavioral overlap - but behavioral overlap and geometric alignment come apart. For practitioners: do not
+use within-model redundancy as a cross-model transfer screen, particularly for representation geometry.
+For methodology: an unfloored ridge and a raw-control partial are each sufficient to invert a headline;
+correlation-over-features interpretability studies should pre-register the estimator and release the
+per-feature arrays.
 
 \section{Limitations}
-Three pairs, one layer each, and one redundancy operationalization. The co-firing measure may retain
-residual co-activation base-rate structure beyond the frequency partial. The decoder alignment is one
-of several possible cross-model matching procedures; an alignment-null control and a multi-layer sweep
-are the two most important robustness checks and are in progress. We make no claim about \emph{why} the
-Gemma/Llama co-firing result is null while Mistral/Llama is positive; instruct-tuning and SAE-family
-differences are candidate explanations we do not resolve.
+Three pairs, one layer each (a multi-layer robustness sweep and a third non-Llama-anchored far pair are
+the two open blocking runs). The co-firing measure may retain co-activation base-rate structure beyond
+the frequency control. We do not resolve why the Gemma co-firing cell is null while Mistral is positive.
 
 \section*{Reproducibility}
-All results are from a single corrected pipeline; pre-correction numbers are reported only as artifacts
-to be superseded. Pair configurations, the $R^2$ floor, the unit-variance PCA conditioning, and the
-random-baseline check are specified above.
-
+Contracts (measures, analysis plan, both artifacts) are frozen at git SHA \texttt{37a266f}. Every number
+regenerates from the released per-feature arrays via \texttt{recompute\_partials.py} on CPU. The harness
+$R^2$ floor is covered by \texttt{test\_harness\_bug.py}. Pre-correction values appear only as labeled
+artifacts.
 \end{document}
