@@ -1,0 +1,113 @@
+"""Gate 3 (offline, $0): partial Spearman + permutation-null control + dependence-respecting
+bootstrap CI, on the saved per-feature arrays for all three pairs. No GPU."""
+import numpy as np
+from scipy.stats import rankdata
+
+import os
+SCRATCH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+PAIRS = [("GPT-2/Pythia (near)", "close.npz"),
+         ("Gemma-9b/Llama-8b (far)", "gemma.npz"),
+         ("Mistral-7b/Llama-8b (far)", "far2.npz")]
+
+
+def resid(y, C):
+    # residual of y after regressing on controls C (with intercept)
+    X = np.column_stack([np.ones(len(y)), C])
+    w, *_ = np.linalg.lstsq(X, y, rcond=None)
+    return y - X @ w
+
+
+def partial_spearman(x, y, controls):
+    rx = resid(rankdata(x), np.column_stack([rankdata(c) for c in controls]))
+    ry = resid(rankdata(y), np.column_stack([rankdata(c) for c in controls]))
+    return float(np.corrcoef(rx, ry)[0, 1])
+
+
+def run(name, fn):
+    d = np.load(f"{SCRATCH}\\{fn}")  # our own harness output; numeric arrays only, no pickle
+    red = d["redundancy_R2"].astype(float)
+    ctrl = [d["freq"].astype(float), d["mag"].astype(float), d["dec_norm"].astype(float)]
+    rng = np.random.default_rng(0)
+    out = {}
+    for meas in ["U_dec", "U_overlap"]:
+        U = d[meas].astype(float)
+        obs = partial_spearman(red, U, ctrl)
+        # permutation null: shuffle redundancy vs (U + controls) -> null band around 0
+        perm = np.empty(1000)
+        rr = rankdata(red)
+        rU = resid(rankdata(U), np.column_stack([rankdata(c) for c in ctrl]))
+        Cr = np.column_stack([rankdata(c) for c in ctrl])
+        for i in range(1000):
+            rx = resid(rr[rng.permutation(len(rr))], Cr)
+            perm[i] = np.corrcoef(rx, rU)[0, 1]
+        lo, hi = np.percentile(perm, [2.5, 97.5])
+        p = (np.sum(np.abs(perm) >= abs(obs)) + 1) / 1001
+        # dependence-respecting bootstrap CI (resample features; groups approximated by features here)
+        n = len(red); boot = np.empty(1000)
+        for i in range(1000):
+            idx = rng.integers(0, n, n)
+            boot[i] = partial_spearman(red[idx], U[idx], [c[idx] for c in ctrl])
+        blo, bhi = np.percentile(boot, [2.5, 97.5])
+        out[meas] = (obs, (lo, hi), p, (blo, bhi))
+    return out
+
+
+print("Gate 3: partial Spearman rho(redundancy, U | freq,mag,decnorm), permutation null (N=1000), bootstrap 95% CI")
+print("=" * 108)
+for name, fn in PAIRS:
+    r = run(name, fn)
+    print(f"\n{name}")
+    for meas, (obs, (lo, hi), p, (blo, bhi)) in r.items():
+        outside = "OUTSIDE null (real effect)" if (obs < lo or obs > hi) else "inside null (not distinguishable)"
+        print(f"  {meas:10s} rho={obs:+.3f}  null95=[{lo:+.3f},{hi:+.3f}]  perm_p={p:.4f}  boot95=[{blo:+.3f},{bhi:+.3f}]  -> {outside}")
+
+# ---------------------------------------------------------------------------
+# Block 4: pre-registered position-shuffle null (finding of 2026-07-07).
+# The harness pre-specified that the headline must beat rho(redundancy_R2_shuf, U).
+# Incremental partials show the co-firing signal is carried by the shuffle-invariant
+# (context-level breadth) component: redundancy adds ~nothing beyond the null.
+print("\nBlock 4: position-shuffle null and incremental partials (controls: freq, mag, dec_norm)")
+print("=" * 108)
+for name, fn in PAIRS:
+    d = np.load(f"{SCRATCH}\\{fn}")
+    red, shuf = d["redundancy_R2"].astype(float), d["redundancy_R2_shuf"].astype(float)
+    ctrl = [d["freq"].astype(float), d["mag"].astype(float), d["dec_norm"].astype(float)]
+    rho_rs = float(np.corrcoef(rankdata(red), rankdata(shuf))[0, 1])
+    print(f"\n{name}  corr(redundancy, shuffled)={rho_rs:+.3f}")
+    for meas in ["U_overlap", "U_dec"]:
+        U = d[meas].astype(float)
+        base = partial_spearman(red, U, ctrl)
+        null = partial_spearman(shuf, U, ctrl)
+        incr = partial_spearman(red, U, ctrl + [shuf])       # redundancy beyond the null
+        incr_rev = partial_spearman(shuf, U, ctrl + [red])   # null beyond redundancy
+        beats = "beats null" if abs(base) > abs(null) else "DOES NOT beat null"
+        print(f"  {meas:10s} real={base:+.3f}  shuffle-null={null:+.3f} ({beats})  "
+              f"red|null={incr:+.3f}  null|red={incr_rev:+.3f}")
+
+# Block 4b: feature-bootstrap 95% CIs on the incremental partials and on the real-minus-null
+# difference (n=1000). The shuffle-null column uses the single stored shuffle realization
+# (one independent position permutation per context, fixed at harness run time).
+print("\nBlock 4b: bootstrap 95% CIs (n=1000) for incremental partials and real-minus-null difference")
+print("=" * 108)
+rng4 = np.random.default_rng(4)
+NB = 1000
+for name, fn in PAIRS:
+    d = np.load(f"{SCRATCH}\\{fn}")
+    red, shuf = d["redundancy_R2"].astype(float), d["redundancy_R2_shuf"].astype(float)
+    ctrl = np.column_stack([d["freq"].astype(float), d["mag"].astype(float), d["dec_norm"].astype(float)])
+    n = len(red)
+    print(f"\n{name}")
+    for meas in ["U_overlap", "U_dec"]:
+        U = d[meas].astype(float)
+        bi, br, bd = np.empty(NB), np.empty(NB), np.empty(NB)
+        for i in range(NB):
+            idx = rng4.integers(0, n, n)
+            c = [ctrl[idx, j] for j in range(3)]
+            r, s, u = red[idx], shuf[idx], U[idx]
+            bi[i] = partial_spearman(r, u, c + [s])
+            br[i] = partial_spearman(s, u, c + [r])
+            bd[i] = abs(partial_spearman(r, u, c)) - abs(partial_spearman(s, u, c))
+        ci = lambda a: (np.percentile(a, 2.5), np.percentile(a, 97.5))
+        (il, ih), (rl, rh), (dl, dh) = ci(bi), ci(br), ci(bd)
+        print(f"  {meas:10s} red|null CI=[{il:+.3f},{ih:+.3f}]  null|red CI=[{rl:+.3f},{rh:+.3f}]  "
+              f"|real|-|null| CI=[{dl:+.3f},{dh:+.3f}]")
