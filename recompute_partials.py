@@ -60,3 +60,26 @@ for name, fn in PAIRS:
     for meas, (obs, (lo, hi), p, (blo, bhi)) in r.items():
         outside = "OUTSIDE null (real effect)" if (obs < lo or obs > hi) else "inside null (not distinguishable)"
         print(f"  {meas:10s} rho={obs:+.3f}  null95=[{lo:+.3f},{hi:+.3f}]  perm_p={p:.4f}  boot95=[{blo:+.3f},{bhi:+.3f}]  -> {outside}")
+
+# ---------------------------------------------------------------------------
+# Block 4: pre-registered position-shuffle null (finding of 2026-07-07).
+# The harness pre-specified that the headline must beat rho(redundancy_R2_shuf, U).
+# Incremental partials show the co-firing signal is carried by the shuffle-invariant
+# (context-level breadth) component: redundancy adds ~nothing beyond the null.
+print("\nBlock 4: position-shuffle null and incremental partials (controls: freq, mag, dec_norm)")
+print("=" * 108)
+for name, fn in PAIRS:
+    d = np.load(f"{SCRATCH}\\{fn}")
+    red, shuf = d["redundancy_R2"].astype(float), d["redundancy_R2_shuf"].astype(float)
+    ctrl = [d["freq"].astype(float), d["mag"].astype(float), d["dec_norm"].astype(float)]
+    rho_rs = float(np.corrcoef(rankdata(red), rankdata(shuf))[0, 1])
+    print(f"\n{name}  corr(redundancy, shuffled)={rho_rs:+.3f}")
+    for meas in ["U_overlap", "U_dec"]:
+        U = d[meas].astype(float)
+        base = partial_spearman(red, U, ctrl)
+        null = partial_spearman(shuf, U, ctrl)
+        incr = partial_spearman(red, U, ctrl + [shuf])       # redundancy beyond the null
+        incr_rev = partial_spearman(shuf, U, ctrl + [red])   # null beyond redundancy
+        beats = "beats null" if abs(base) > abs(null) else "DOES NOT beat null"
+        print(f"  {meas:10s} real={base:+.3f}  shuffle-null={null:+.3f} ({beats})  "
+              f"red|null={incr:+.3f}  null|red={incr_rev:+.3f}")
