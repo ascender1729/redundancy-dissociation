@@ -3,7 +3,8 @@ bootstrap CI, on the saved per-feature arrays for all three pairs. No GPU."""
 import numpy as np
 from scipy.stats import rankdata
 
-SCRATCH = r"C:\Users\pavan\AppData\Local\Temp\claude\F--VIBETENSOR\dc44cba6-ba23-4483-b53f-e9d3ea039fa7\scratchpad"
+import os
+SCRATCH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 PAIRS = [("GPT-2/Pythia (near)", "close.npz"),
          ("Gemma-9b/Llama-8b (far)", "gemma.npz"),
          ("Mistral-7b/Llama-8b (far)", "far2.npz")]
