@@ -37,23 +37,23 @@ partial $\rho$ between $-0.09$ and $+0.02$): what predicts co-firing transfer is
 frozen, reviewer-reproducible estimator, the surviving results are (i) a weak, consistent
 \emph{negative} association between the redundancy score and decoder-geometry universality across three
 model pairs ($N{=}2500$ features per pair; partial $\rho\in[-0.17,-0.12]$, all outside a permutation
-null) - itself largely carried by the breadth component on two pairs, with a redundancy-structure-specific
-negative on one pair only ($-0.23$) - and (ii) a co-firing association that is real but attributable to
+null), itself largely carried by the breadth component on two pairs with a redundancy-structure-specific
+negative on one pair only ($-0.23$), and (ii) a co-firing association that is real but attributable to
 context breadth. We release per-feature arrays and a recompute script so every number
 regenerates on a CPU in seconds. The practical lessons: within-model redundancy is not a proxy for
 cross-model representational geometry; a signal that survives your permutation null can still be absorbed
 by a stronger pre-registered null you forgot to run; and interpretability correlation studies are
-dangerously sensitive to the ridge floor and the partialling convention.
+highly sensitive to the ridge floor and the partialling convention.
 \end{abstract}
 
 \section{Introduction}
-Feature universality - independently trained networks learning overlapping features - is widely reported
+Feature universality (independently trained networks learning overlapping features) is widely reported
 \citep{olah2020zoom,towards2024universality,lan2024quantifying} but lacks a predictor of \emph{which}
 features transfer. Natural-latent theory \citep{wentworth2025natural} suggests one: redundant latents are
 stable across ontologies, so the most redundant SAE features should be the most universal.
-We set out to test this and instead learned a methods lesson. Two innocuous-looking choices in the
-measurement pipeline - whether the redundancy ridge $R^2$ is floored, and whether the partial correlation
-is taken on raw values or ranks - each independently manufacture a different headline from the same data.
+We set out to test this prediction and instead obtained a methodological result. Two seemingly minor choices in the
+measurement pipeline, namely whether the redundancy ridge $R^2$ is floored and whether the partial
+correlation is taken on raw values or ranks, each independently manufacture a different headline from the same data.
 This paper documents both artifacts, freezes a single defensible estimator, and reports what survives.
 The contribution is a reliability result plus a modest, honestly scoped dissociation; it is not a
 universality law.
@@ -109,7 +109,7 @@ already apply a random-pairing permutation null and filter trivial high-frequenc
 permutation nulls per se are not new here; our contribution is the stronger within-context
 position-shuffle null, which our plan pre-registered but our confirmatory analysis initially failed to
 run. On breadth and frequency: \citet{paulo2025different} report that the latents firing most
-frequently are the ones shared across eight seed-varied SAEs - the cross-seed analogue of our
+frequently are the ones shared across eight seed-varied SAEs, the cross-seed analogue of our
 context-breadth finding, which we extend to cross-architecture transfer and sharpen by showing the
 redundancy score adds nothing beyond it. By contrast, \citet{gurnee2024universal} find universal
 \emph{neurons} in seed-varied GPT-2 models fire sparsely and selectively; the tension plausibly
@@ -145,14 +145,14 @@ reported as refuted or scoped; thresholds never move.
 
 \section{Two Artifacts}
 \label{sec:artifacts}
-\textbf{Artifact 1 - the ridge blow-up.} For a feature with a large mean and small residual variance,
-$R^2=1-\mathrm{ss\_res}/\mathrm{ss\_tot}$ has a tiny denominator, so an imperfect fit yields a huge
+\textbf{Artifact 1: the ridge blow-up.} For a feature with a large mean and small residual variance,
+$R^2=1-\mathrm{ss\_res}/\mathrm{ss\_tot}$ has a small denominator, so an imperfect fit yields an extreme
 negative value; on Gemma/Llama-scale activations the mean redundancy $R^2$ reached $\sim{-}1.4\times10^5$.
-These garbage scores correlated spuriously, giving a decoder-geometry $\rho=+0.27$ on the near pair.
+These degenerate scores correlated spuriously, giving a decoder-geometry $\rho=+0.27$ on the near pair.
 Flooring $R^2$ at $-1$ removes it; a regression test (\texttt{test\_harness\_bug.py}) fails pre-fix and
 passes post-fix.
 
-\textbf{Artifact 2 - the raw-control partial.} With the floor in place, residualizing raw redundancy and
+\textbf{Artifact 2: the raw-control partial.} With the floor in place, residualizing raw redundancy and
 raw $U_{\text{dec}}$ on the \emph{raw} (skewed) controls before Spearman gives near-pair $\rho=+0.001$;
 the standard rank-based partial Spearman on the identical arrays gives $-0.122$. The ``corrected zero''
 was itself a partialling artifact. We freeze the rank-based estimator and recompute all cells with it.
@@ -258,7 +258,7 @@ related to decoder-geometry universality (left) yet \emph{positively} related to
 \label{fig:scatter}
 \end{figure*}
 
-\textbf{Decoder geometry: a small, consistent negative - not zero, not the prior positive.} Across all
+\textbf{Decoder geometry: a small, consistent negative, neither zero nor the prior positive.} Across all
 three pairs redundancy is weakly \emph{anti}-associated with decoder-cosine universality
 ($\rho\in[-0.17,-0.12]$, $1.5$--$2.9\%$ variance), every CI excluding zero on the negative side, every
 coefficient outside the permutation null (Table~\ref{tab:main}, Figure~\ref{fig:forest}). The measure is
@@ -282,7 +282,7 @@ does appear is not a co-firing tautology.
 
 \textbf{The dissociation.} On the same features and score, redundancy's relationship to universality has
 opposite sign under the two universality operationalizations: mildly negative for decoder geometry on all
-three pairs, positive where present for co-firing - with the co-firing side attributable to context
+three pairs, positive where present for co-firing, with the co-firing side attributable to context
 breadth rather than redundancy structure (Figure~\ref{fig:scatter}, Table~\ref{tab:null}). Which
 ``universality'' you measure decides the answer, and which null you enforce decides the mechanism you may
 claim.
@@ -295,7 +295,7 @@ decoder in a second model. The co-firing association is real but, once the pre-r
 position-shuffle null is enforced, it is attributable to context-level activation breadth rather than to
 redundancy structure; behavioral overlap and geometric alignment come apart either way. For
 practitioners: do not use within-model redundancy as a cross-model transfer screen, particularly for
-representation geometry, and treat breadth-of-firing as the boring-but-live confounder behind
+representation geometry, and treat breadth of firing as the default confounder to rule out in
 transfer-prediction claims. For methodology, three lessons with the same shape: an unfloored ridge and a
 raw-control partial are each sufficient to invert a headline, and a pre-registered null that goes
 unenforced can silently upgrade ``context breadth predicts transfer'' into ``redundancy predicts
