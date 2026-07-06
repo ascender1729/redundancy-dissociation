@@ -34,11 +34,12 @@ enforce it. Enforcing it shows the co-firing positive does not beat the null on 
 $+0.29$ observed vs.\ $+0.38$ null), and redundancy adds no detectable signal beyond it (incremental
 partial $\rho$ between $-0.09$ and $+0.02$): what predicts co-firing transfer is the shuffle-invariant
 \emph{context-level breadth} of a feature's activations, not redundancy structure per se. Under the single
-frozen, reviewer-reproducible estimator, the surviving results are (i) a weak but consistent
-\emph{negative} association between redundancy and decoder-geometry universality across three model pairs
-($N{=}2500$ features per pair; partial $\rho\in[-0.17,-0.12]$, all outside a permutation null), which on
-one pair strengthens beyond the shuffle null ($-0.23$), and (ii) a co-firing association that is real but
-attributable to context breadth. We release per-feature arrays and a recompute script so every number
+frozen, reviewer-reproducible estimator, the surviving results are (i) a weak, consistent
+\emph{negative} association between the redundancy score and decoder-geometry universality across three
+model pairs ($N{=}2500$ features per pair; partial $\rho\in[-0.17,-0.12]$, all outside a permutation
+null) - itself largely carried by the breadth component on two pairs, with a redundancy-structure-specific
+negative on one pair only ($-0.23$) - and (ii) a co-firing association that is real but attributable to
+context breadth. We release per-feature arrays and a recompute script so every number
 regenerates on a CPU in seconds. The practical lessons: within-model redundancy is not a proxy for
 cross-model representational geometry; a signal that survives your permutation null can still be absorbed
 by a stronger pre-registered null you forgot to run; and interpretability correlation studies are
@@ -98,6 +99,23 @@ conditional independence \citep{pearl2009causality} and approximate recoverabili
 \citep{cover2006elements} respectively; our notion of redundancy is the natural-latent
 data-part-recoverability sense, distinct from decoder-cosine redundancy among SAE latents and from the
 redundant-information term of Partial Information Decomposition \citep{williams2010nonnegative}.
+
+\textbf{Reliability controls and illusions.} Our position-shuffle null belongs to the control-task
+lineage of \citet{hewitt2019control}: a statistic earns its interpretation only by beating a
+structure-destroying control. The interpretability-illusion literature documents what happens otherwise
+\citep{bolukbasi2021illusion,makelov2023illusion}, and \citet{heap2025sparse} show SAEs yield
+``interpretable'' features even on randomly initialized transformers. \citet{lan2024quantifying}
+already apply a random-pairing permutation null and filter trivial high-frequency token features, so
+permutation nulls per se are not new here; our contribution is the stronger within-context
+position-shuffle null, which our plan pre-registered but our confirmatory analysis initially failed to
+run. On breadth and frequency: \citet{paulo2025different} report that the latents firing most
+frequently are the ones shared across eight seed-varied SAEs - the cross-seed analogue of our
+context-breadth finding, which we extend to cross-architecture transfer and sharpen by showing the
+redundancy score adds nothing beyond it. By contrast, \citet{gurnee2024universal} find universal
+\emph{neurons} in seed-varied GPT-2 models fire sparsely and selectively; the tension plausibly
+reflects the unit (neurons vs.\ SAE latents), the statistic (raw firing rate vs.\ context breadth
+under frequency controls), and the regime (same-architecture seeds vs.\ cross-architecture matching),
+and resolving it is future work.
 
 \section{Measures (Frozen)}
 \label{sec:measures}
@@ -159,12 +177,21 @@ component of redundancy. The pre-registered standard was that the headline assoc
 null. It does not (Table~\ref{tab:null}): on every pair the shuffled predictor associates with co-firing
 universality at least as strongly as the real one ($+0.38$ vs.\ $+0.29$ near; $+0.21$ vs.\ $+0.17$;
 $+0.08$ vs.\ $+0.005$), the two scores are highly rank-correlated ($\rho=0.64$--$0.86$), and the
-incremental partial of redundancy given the null is indistinguishable from zero for co-firing on all
-pairs ($-0.09$ to $+0.02$) while the reverse partial retains signal ($+0.12$ to $+0.26$). The
+incremental partial of redundancy given the null is indistinguishable from zero or negative for
+co-firing on all pairs ($-0.09$ to $+0.02$) while the reverse partial retains signal ($+0.12$ to
+$+0.26$). Feature-bootstrap $95\%$ CIs ($n{=}1000$; Block 4b of the recompute script) put uncertainty on
+the load-bearing comparisons: the co-firing incremental partials span zero or are negative (near
+$[-0.084,+0.014]$; Gemma $[-0.124,-0.048]$; Mistral $[-0.020,+0.051]$), and the difference
+$|\text{real}|-|\text{null}|$ is \emph{negative} on all three co-firing cells (near $[-0.124,-0.058]$;
+Gemma $[-0.099,-0.011]$; Mistral $[-0.072,-0.018]$): the shuffled score is a significantly
+\emph{stronger} predictor than the real one. The shuffle-null column uses the single stored shuffle
+realization (one independent position permutation per context, fixed at harness run time). The
 shuffle-\emph{invariant} component carries the co-firing association; the shuffle-\emph{sensitive}
-(position-structure) component adds nothing detectable. For decoder geometry the picture differs by pair:
-on the Gemma pair the negative association \emph{strengthens} beyond the null (incremental $-0.23$),
-while on the other two pairs it, too, is largely carried by the shuffle-invariant component.
+(position-structure) component adds nothing detectable. For decoder geometry the picture differs by
+pair: on the Gemma pair the negative association \emph{strengthens} beyond the null (incremental
+$-0.225$, CI $[-0.262,-0.184]$), while on the near and Mistral pairs the unique redundancy component is
+small and of \emph{opposite} sign (CIs $[+0.019,+0.092]$ and $[+0.005,+0.081]$), so there the negative
+is carried by the breadth component.
 
 \begin{table}[t]\centering\small
 \begin{tabular}{lcccc}
@@ -183,9 +210,11 @@ Mistral & $-0.159$ & $-0.253$ & $+0.044$ & $-0.204$ \\
 \bottomrule
 \end{tabular}
 \caption{Position-shuffle null (same frozen partial-Spearman estimator and controls). ``real'' is the
-observed partial $\rho$; ``null'' uses the position-shuffled redundancy score; the last two columns are
-incremental partials of each predictor given the other. The co-firing headline never beats the null and
-retains no unique signal beyond it.}
+observed partial $\rho$; ``null'' uses the position-shuffled redundancy score (single stored
+realization); the last two columns are incremental partials of each predictor given the other. The
+co-firing headline never beats the null and retains no unique signal beyond it: feature-bootstrap
+$95\%$ CIs ($n{=}1000$) on $|\text{real}|-|\text{null}|$ are negative on all three co-firing cells
+(Section~\ref{sec:null}).}
 \label{tab:null}
 \end{table}
 
@@ -203,8 +232,8 @@ Mistral-7B / Llama-3.1-8B (far) & $-0.159$ & $[-0.200,-0.119]$ & $+0.169$ & $[+0
 \end{tabular}
 \caption{Frozen rank-based partial Spearman (controls: frequency, magnitude, decoder norm), $N{=}2500$
 features per pair, permutation null $n{=}1000$. Every $U_{\text{dec}}$ cell and both non-null
-$U_{\text{overlap}}$ cells lie outside their per-cell permutation bands (widest $[-0.043,+0.040]$;
-$p=0.001$); the Gemma
+$U_{\text{overlap}}$ cells lie outside their per-cell permutation bands (all bands within
+$\pm0.043$; $p=0.001$); the Gemma
 $U_{\text{overlap}}$ cell is inside it ($p=0.836$). Only the near-pair $U_{\text{overlap}}$ cell clears
 the pre-registered AC1 threshold of $+0.20$; the Mistral cell ($+0.169$) is outside the null but below
 threshold.}
@@ -242,8 +271,8 @@ negative beyond the null ($-0.225$, Table~\ref{tab:null}).
 the frozen criterion.} Redundancy is positively associated with co-firing universality on the near pair
 ($+0.291$) and one far pair ($+0.169$), both outside the permutation null, but not the other far pair
 ($+0.005$, inside the null). The pre-registered acceptance criterion AC1 required partial $\rho>{+}0.20$
-on at least 2 of 3 pairs; only the near pair clears $+0.20$, and the Mistral pair falls below it, so C1
-is \emph{confirmed on only 1 of 3 pairs}. More decisively, Section~\ref{sec:null} shows the association
+on at least 2 of 3 pairs; only the near pair clears $+0.20$, so \emph{AC1 is not met} (1 of 3 pairs).
+More decisively, Section~\ref{sec:null} shows the association
 never beats the pre-registered position-shuffle null and retains no unique signal beyond it, so the
 surviving claim is that a feature's \emph{context-level activation breadth} predicts co-firing transfer;
 \emph{redundancy structure adds nothing detectable}. An earlier pilot estimate of the near-pair
@@ -315,5 +344,27 @@ were labeled non-confirmatory at freeze time and are superseded by the frozen ga
 supplementary material / anonymous repository (link redacted for review).
 
 \bibliography{bbnlp}
+
+\appendix
+\section{Experimental Setup}
+\label{app:setup}
+All activations come from $3000$ contexts of $64$ tokens drawn from a public Pile sample
+(\texttt{NeelNanda/pile-10k}), streamed identically for both models of a pair. Models and SAEs (all
+publicly released, via \texttt{sae\_lens} / \texttt{transformer\_lens}): \textbf{near pair} GPT-2-small,
+layer-8 residual post (\texttt{gpt2-small-resid-post-v5-32k}) vs.\ Pythia-70m-deduped, layer-4 residual
+post (\texttt{pythia-70m-deduped-res-sm}); \textbf{Gemma pair} Gemma-2-9b-it, layer-20 residual post,
+width 16k canonical (\texttt{gemma-scope-9b-it-res-canonical}) vs.\ Llama-3.1-8B-Instruct, layer-16
+residual post, Llama-Scope $8\times$ (\texttt{llama\_scope\_lxr\_8x}, \texttt{l16r\_8x}); \textbf{Mistral
+pair} Mistral-7B, layer-16 residual pre (\texttt{mistral-7b-res-wg}) vs.\ the same Llama-3.1-8B SAE.
+Per pair, the $N{=}2500$ most active model-A features are scored. Redundancy:
+$\min(R^2_{L\to f}, R^2_{R\to f})$, where each $R^2$ is an in-sample closed-form ridge fit
+($\lambda{=}1$) predicting the feature's per-context half-mean activation from a $48$-dimensional PCA
+summary of the \emph{opposite} residual-stream half (halves by dimension parity), floored at $-1$.
+Cross-model matching: token-level max-activation correlation; $U_{\text{overlap}}$ is the Jaccard
+overlap of top-$50$ context sets; $U_{\text{dec}}$ is the aligned cross-model decoder cosine with a
+shuffled-decoder baseline. The position-shuffle null permutes token positions independently per context
+before the half split (one stored realization). Bootstrap and permutation sizes are $n{=}1000$
+throughout. The released arrays contain, per feature: redundancy (real and position-shuffled), both
+universality scores, frequency, magnitude, and decoder norm.
 
 \end{document}

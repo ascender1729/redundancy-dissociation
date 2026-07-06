@@ -83,3 +83,31 @@ for name, fn in PAIRS:
         beats = "beats null" if abs(base) > abs(null) else "DOES NOT beat null"
         print(f"  {meas:10s} real={base:+.3f}  shuffle-null={null:+.3f} ({beats})  "
               f"red|null={incr:+.3f}  null|red={incr_rev:+.3f}")
+
+# Block 4b: feature-bootstrap 95% CIs on the incremental partials and on the real-minus-null
+# difference (n=1000). The shuffle-null column uses the single stored shuffle realization
+# (one independent position permutation per context, fixed at harness run time).
+print("\nBlock 4b: bootstrap 95% CIs (n=1000) for incremental partials and real-minus-null difference")
+print("=" * 108)
+rng4 = np.random.default_rng(4)
+NB = 1000
+for name, fn in PAIRS:
+    d = np.load(f"{SCRATCH}\\{fn}")
+    red, shuf = d["redundancy_R2"].astype(float), d["redundancy_R2_shuf"].astype(float)
+    ctrl = np.column_stack([d["freq"].astype(float), d["mag"].astype(float), d["dec_norm"].astype(float)])
+    n = len(red)
+    print(f"\n{name}")
+    for meas in ["U_overlap", "U_dec"]:
+        U = d[meas].astype(float)
+        bi, br, bd = np.empty(NB), np.empty(NB), np.empty(NB)
+        for i in range(NB):
+            idx = rng4.integers(0, n, n)
+            c = [ctrl[idx, j] for j in range(3)]
+            r, s, u = red[idx], shuf[idx], U[idx]
+            bi[i] = partial_spearman(r, u, c + [s])
+            br[i] = partial_spearman(s, u, c + [r])
+            bd[i] = abs(partial_spearman(r, u, c)) - abs(partial_spearman(s, u, c))
+        ci = lambda a: (np.percentile(a, 2.5), np.percentile(a, 97.5))
+        (il, ih), (rl, rh), (dl, dh) = ci(bi), ci(br), ci(bd)
+        print(f"  {meas:10s} red|null CI=[{il:+.3f},{ih:+.3f}]  null|red CI=[{rl:+.3f},{rh:+.3f}]  "
+              f"|real|-|null| CI=[{dl:+.3f},{dh:+.3f}]")
