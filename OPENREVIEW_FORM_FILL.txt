@@ -1,0 +1,42 @@
+OPENREVIEW SUBMISSION FORM - EXACT VALUES TO PASTE
+Venue: The 9th BlackboxNLP Workshop Special Track (Reproducibility and Reliability)
+Deadline shown on form: Jul 18 2026 11:59AM UTC-0 (same as Jul 17 AoE)
+=====================================================================
+
+TITLE (paste exactly):
+Two Measurement Artifacts, an Unenforced Null, and What Survives in a Sparse-Autoencoder Feature-Universality Analysis
+
+AUTHORS:
+Pavan Kumar Dubasi (your profile, already selected). This is correct: author names
+in the form metadata are hidden from reviewers under double blind; only the PDF
+must be anonymous, and it is.
+
+KEYWORDS (paste as one line):
+sparse autoencoders, feature universality, reproducibility, reliability, measurement artifacts, statistical controls, interpretability, natural latents
+
+TL;DR (paste as one line):
+Two measurement artifacts and an unenforced pre-registered null each rewrite the headline of an SAE feature-universality analysis; every number regenerates from released arrays on a CPU in seconds.
+
+ABSTRACT (paste exactly; TeX math is supported by the form):
+We report a reliability study of a natural-latent prediction for sparse-autoencoder (SAE) features: that features which are redundant within a model (recoverable from disjoint parts of its own activations) are the ones that transfer across independently trained models. In building the test we uncovered two measurement artifacts, each of which flips or fabricates the headline. (1) On large-activation models an unfloored ridge $R^2$ diverges to $\sim{-}1.4\times10^{5}$ for low-variance features, producing a spurious positive decoder-geometry correlation ($+0.27$). (2) After that is fixed, computing the partial correlation by residualizing on raw skewed controls (rather than on ranks) fabricates a near-zero decoder result ($+0.001$) where the standard rank-based partial Spearman gives $-0.12$. Third, and most instructive: the measurement plan pre-registered a position-shuffle null that the headline was required to beat, and our own confirmatory analysis initially failed to enforce it. Enforcing it shows the co-firing positive does not beat the null on any pair (e.g. near pair $+0.29$ observed vs. $+0.38$ null), and redundancy adds no detectable signal beyond it (incremental partial $\rho$ between $-0.09$ and $+0.02$): what predicts co-firing transfer is the shuffle-invariant context-level breadth of a feature's activations, not redundancy structure per se. Under the single frozen, reviewer-reproducible estimator, the surviving results are (i) a weak, consistent negative association between the redundancy score and decoder-geometry universality across three model pairs ($N{=}2500$ features per pair; partial $\rho\in[-0.17,-0.12]$, all outside a permutation null), itself largely carried by the breadth component on two pairs with a redundancy-structure-specific negative on one pair only ($-0.23$), and (ii) a co-firing association that is real but attributable to context breadth. We release per-feature arrays and a recompute script so every number regenerates on a CPU in seconds. The practical lessons: within-model redundancy is not a proxy for cross-model representational geometry; a signal that survives your permutation null can still be absorbed by a stronger pre-registered null you forgot to run; and interpretability correlation studies are highly sensitive to the ridge floor and the partialling convention.
+
+PDF (upload this file):
+F:\VIBETENSOR\99_WORKING_DRAFTS\ILIAD_INTENSIVE_2026\research_papers\redundancy_dissociation\bbnlp_submission.pdf
+
+LICENSE:
+CC BY 4.0 (the only option; select it)
+
+READERS / SIGNATURES:
+Leave the defaults (EMNLP 2026 Workshop BlackboxNLP Special Track + authorids;
+signature = your profile).
+
+=====================================================================
+IMPORTANT NOTE (no supplementary field on this form)
+The form has no supplementary-material upload, so the zip cannot be attached.
+The paper's Reproducibility Statement says "anonymous repository (link redacted
+for review)". Plan: submit now as is, then BEFORE Jul 17 we create an anonymized
+repository link (anonymous.4open.science) and revise the PDF's one line to point
+to it; OpenReview direct submissions can be revised until the deadline. The zip
+stays ready at:
+F:\VIBETENSOR\99_WORKING_DRAFTS\ILIAD_INTENSIVE_2026\research_papers\redundancy_dissociation\bbnlp_supplementary.zip
+=====================================================================

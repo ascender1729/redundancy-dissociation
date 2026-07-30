@@ -1,0 +1,131 @@
+\begin{thebibliography}{18}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Bolukbasi et~al.(2021)Bolukbasi, Pearce, Yuan, Coenen, Reif,
+  Vi{\'e}gas, and Wattenberg}]{bolukbasi2021illusion}
+Tolga Bolukbasi, Adam Pearce, Ann Yuan, Andy Coenen, Emily Reif, Fernanda
+  Vi{\'e}gas, and Martin Wattenberg. 2021.
+\newblock An interpretability illusion for {BERT}.
+\newblock \emph{arXiv preprint arXiv:2104.07143}.
+
+\bibitem[{Bricken et~al.(2023)Bricken, Templeton, Batson, Chen, Jermyn,
+  Conerly, Turner, Anil, Denison, Askell, Lasenby, Wu, Kravec, Schiefer,
+  Maxwell, Joseph, Hatfield-Dodds, Tamkin, Nguyen, McLean, Burke, Hume, Carter,
+  Henighan, and Olah}]{bricken2023monosemanticity}
+Trenton Bricken, Adly Templeton, Joshua Batson, Brian Chen, Adam Jermyn, Tom
+  Conerly, Nick Turner, Cem Anil, Carson Denison, Amanda Askell, Robert
+  Lasenby, Yifan Wu, Shauna Kravec, Nicholas Schiefer, Tim Maxwell, Nicholas
+  Joseph, Zac Hatfield-Dodds, Alex Tamkin, Karina Nguyen, and 6 others. 2023.
+\newblock Towards monosemanticity: Decomposing language models with dictionary
+  learning.
+\newblock \emph{Transformer Circuits Thread}.
+\newblock Https://transformer-circuits.pub/2023/monosemantic-features.
+
+\bibitem[{Cover and Thomas(2006)}]{cover2006elements}
+Thomas~M. Cover and Joy~A. Thomas. 2006.
+\newblock \emph{Elements of Information Theory}, 2nd edition.
+\newblock Wiley-Interscience, Hoboken, NJ.
+
+\bibitem[{Gurnee et~al.(2024)Gurnee, Horsley, Guo, Kheirkhah, Sun, Hathaway,
+  Nanda, and Bertsimas}]{gurnee2024universal}
+Wes Gurnee, Theo Horsley, Zifan~Carl Guo, Tara~Rezaei Kheirkhah, Qinyi Sun,
+  Will Hathaway, Neel Nanda, and Dimitris Bertsimas. 2024.
+\newblock Universal neurons in {GPT2} language models.
+\newblock \emph{arXiv preprint arXiv:2401.12181}.
+
+\bibitem[{Heap et~al.(2025)Heap, Lawson, Farnik, and
+  Aitchison}]{heap2025sparse}
+Thomas Heap, Tim Lawson, Lucy Farnik, and Laurence Aitchison. 2025.
+\newblock Automated interpretability metrics do not distinguish trained and
+  random transformers.
+\newblock \emph{arXiv preprint arXiv:2501.17727}.
+
+\bibitem[{Hewitt and Liang(2019)}]{hewitt2019control}
+John Hewitt and Percy Liang. 2019.
+\newblock Designing and interpreting probes with control tasks.
+\newblock In \emph{Proceedings of EMNLP-IJCNLP}.
+
+\bibitem[{Huh et~al.(2024)Huh, Cheung, Wang, and Isola}]{huh2024platonic}
+Minyoung Huh, Brian Cheung, Tongzhou Wang, and Phillip Isola. 2024.
+\newblock The platonic representation hypothesis.
+\newblock In \emph{Proceedings of the 41st International Conference on Machine
+  Learning (ICML)}.
+
+\bibitem[{Kornblith et~al.(2019)Kornblith, Norouzi, Lee, and
+  Hinton}]{kornblith2019similarity}
+Simon Kornblith, Mohammad Norouzi, Honglak Lee, and Geoffrey Hinton. 2019.
+\newblock Similarity of neural network representations revisited.
+\newblock In \emph{Proceedings of the 36th International Conference on Machine
+  Learning (ICML)}.
+
+\bibitem[{Lan et~al.(2024)Lan, Torr, Meek, Khakzar, Krueger, and
+  Barez}]{lan2024quantifying}
+Michael Lan, Philip Torr, Austin Meek, Ashkan Khakzar, David Krueger, and Fazl
+  Barez. 2024.
+\newblock Quantifying feature space universality across large language models
+  via sparse autoencoders.
+\newblock \emph{arXiv preprint arXiv:2410.06981}.
+
+\bibitem[{Lindsey et~al.(2024)Lindsey, Templeton, Marcus, Conerly, Batson, and
+  Olah}]{lindsey2024crosscoders}
+Jack Lindsey, Adly Templeton, Jonathan Marcus, Tom Conerly, Joshua Batson, and
+  Christopher Olah. 2024.
+\newblock Sparse crosscoders for cross-layer features and model diffing.
+\newblock \emph{Transformer Circuits Thread}.
+\newblock Https://transformer-circuits.pub/2024/crosscoders.
+
+\bibitem[{Makelov et~al.(2023)Makelov, Lange, and Nanda}]{makelov2023illusion}
+Aleksandar Makelov, Georg Lange, and Neel Nanda. 2023.
+\newblock Is this the subspace you are looking for? an interpretability
+  illusion for subspace activation patching.
+\newblock \emph{arXiv preprint arXiv:2311.17030}.
+
+\bibitem[{Olah et~al.(2020)Olah, Cammarata, Schubert, Goh, Petrov, and
+  Carter}]{olah2020zoom}
+Chris Olah, Nick Cammarata, Ludwig Schubert, Gabriel Goh, Michael Petrov, and
+  Shan Carter. 2020.
+\newblock \href {https://doi.org/10.23915/distill.00024.001} {Zoom in: An
+  introduction to circuits}.
+\newblock \emph{Distill}.
+\newblock Https://distill.pub/2020/circuits/zoom-in.
+
+\bibitem[{Paulo and Belrose(2025)}]{paulo2025different}
+Gon{\c c}alo Paulo and Nora Belrose. 2025.
+\newblock Sparse autoencoders trained on the same data learn different
+  features.
+\newblock \emph{arXiv preprint arXiv:2501.16615}.
+
+\bibitem[{Pearl(2009)}]{pearl2009causality}
+Judea Pearl. 2009.
+\newblock \emph{Causality: Models, Reasoning, and Inference}, 2nd edition.
+\newblock Cambridge University Press, Cambridge.
+
+\bibitem[{Thasarathan et~al.(2025)Thasarathan, Forsyth, Fel, Kowal, and
+  Derpanis}]{thasarathan2025universal}
+Harrish Thasarathan, Julian Forsyth, Thomas Fel, Matthew Kowal, and
+  Konstantinos~G. Derpanis. 2025.
+\newblock Universal sparse autoencoders: Interpretable cross-model concept
+  alignment.
+\newblock \emph{arXiv preprint arXiv:2502.03714}.
+
+\bibitem[{Wang et~al.(2024)Wang, Ge, Shu, Tang, Zhou, He, and
+  Qiu}]{towards2024universality}
+Junxuan Wang, Xuyang Ge, Wentao Shu, Qiong Tang, Yunhua Zhou, Zhengfu He, and
+  Xipeng Qiu. 2024.
+\newblock \href {https://arxiv.org/abs/2410.06672} {Towards universality:
+  Studying mechanistic similarity across language model architectures}.
+\newblock \emph{arXiv preprint arXiv:2410.06672}.
+
+\bibitem[{Wentworth and Lorell(2025)}]{wentworth2025natural}
+John Wentworth and David Lorell. 2025.
+\newblock \href {https://arxiv.org/abs/2509.03780} {Natural latents: Latent
+  variables stable across ontologies}.
+\newblock \emph{arXiv preprint arXiv:2509.03780}.
+
+\bibitem[{Williams and Beer(2010)}]{williams2010nonnegative}
+Paul~L. Williams and Randall~D. Beer. 2010.
+\newblock \href {https://arxiv.org/abs/1004.2515} {Nonnegative decomposition of
+  multivariate information}.
+\newblock \emph{arXiv preprint arXiv:1004.2515}.
+
+\end{thebibliography}
