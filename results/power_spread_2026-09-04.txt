@@ -1,0 +1,27 @@
+Analytic SE of a partial rank correlation at N=2500 with 3 controls: 0.0200
+   alpha=0.05   significant above |rho|=0.039   80%-power MDE |rho|=0.056
+   alpha=0.01   significant above |rho|=0.052   80%-power MDE |rho|=0.068
+   alpha=0.001  significant above |rho|=0.066   80%-power MDE |rho|=0.083
+
+Estimator spread versus sampling noise, per cell
+============================================================================================
+pair      measure       frozen spec-range  range/SE boot-CI-width
+near      U_dec         -0.122     0.203      10.1     0.076
+near      U_overlap     +0.291     0.261      13.0     0.085
+gemma     U_dec         -0.169     0.105       5.3     0.080
+gemma     U_overlap     +0.005     0.124       6.2     0.077
+mistral   U_dec         -0.159     0.078       3.9     0.077
+mistral   U_overlap     +0.169     0.236      11.8     0.076
+
+Holm-Bonferroni over the six frozen cells (permutation p, 1000 shuffles, floor 0.001):
+   near      U_dec       p=0.0010  Holm-adjusted <= 0.0060  significant at 0.01
+   near      U_overlap   p=0.0010  Holm-adjusted <= 0.0050  significant at 0.01
+   gemma     U_dec       p=0.0010  Holm-adjusted <= 0.0040  significant at 0.01
+   mistral   U_dec       p=0.0010  Holm-adjusted <= 0.0030  significant at 0.01
+   mistral   U_overlap   p=0.0010  Holm-adjusted <= 0.0020  significant at 0.01
+   gemma     U_overlap   p=0.8362  Holm-adjusted <= 0.8362  not significant at 0.01
+
+Tie structure of the co-firing target (a rank statistic on a heavily tied variable):
+   near      38 distinct values over 2500 features; largest tie group 168 (6.7%)
+   gemma     44 distinct values over 2500 features; largest tie group 136 (5.4%)
+   mistral   43 distinct values over 2500 features; largest tie group 226 (9.0%)

@@ -1,0 +1,17 @@
+Robustness checks (controls: freq, mag, dec_norm) - frozen arrays in data/
+====================================================================================================
+
+GPT-2/Pythia (near)  (N=2500)
+  U_overlap  full=+0.291 | even=+0.273 odd=+0.310 | kendall=+0.216 | freq-matched=+0.284 | shuffled-pred=+0.382
+  U_dec      full=-0.122 | even=-0.151 odd=-0.093 | kendall=-0.082 | freq-matched=-0.114 | shuffled-pred=-0.190
+
+Gemma-9b/Llama-8b (far)  (N=2500)
+  U_overlap  full=+0.005 | even=+0.004 odd=+0.008 | kendall=+0.008 | freq-matched=+0.005 | shuffled-pred=+0.081
+  U_dec      full=-0.169 | even=-0.183 odd=-0.159 | kendall=-0.116 | freq-matched=-0.169 | shuffled-pred=-0.029
+
+Mistral-7b/Llama-8b (far)  (N=2500)
+  U_overlap  full=+0.169 | even=+0.127 odd=+0.210 | kendall=+0.128 | freq-matched=+0.152 | shuffled-pred=+0.213
+  U_dec      full=-0.159 | even=-0.187 odd=-0.124 | kendall=-0.113 | freq-matched=-0.174 | shuffled-pred=-0.253
+
+Interpretation guide: even/odd should bracket full; kendall same sign, smaller magnitude;
+freq-matched surviving nonzero = effect not a frequency artifact; shuffled-pred ~ 0.

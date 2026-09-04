@@ -1,0 +1,590 @@
+% Redraft, 4 September 2026. Reframed as a measurement-reliability contribution.
+% Target: arXiv preprint (cs.LG), then a mechanistic-interpretability workshop.
+% To anonymise for a double-blind venue, replace the \author block with "Anonymous authors" and
+% route any repository link through an anonymous host.
+% Supersedes bbnlp_submission.tex. Do not edit numbers without rerunning the scripts named in the
+% Reproducibility section; every number here was regenerated on 2026-09-04.
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1.05in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[round]{natbib}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+\title{Estimator Choice Dominates Sampling Error in\\ Correlation-over-Features Interpretability Studies}
+\author{Pavan Kumar Dubasi}
+\date{4 September 2026}
+
+\sloppy
+\setlength{\emergencystretch}{3em}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A common move in sparse-autoencoder interpretability is to compute one score per feature, one
+outcome per feature, and report a partial correlation over a few thousand features. The estimator
+for that correlation involves choices that are rarely stated: what to control for, whether to
+residualise on ranks or on raw values, and which rank statistic to use. We take one such study end
+to end and enumerate them. The study asks whether SAE features that are redundant within a model
+are the ones that recur across models, a prediction from natural-latent theory that we expected to
+hold, and our first analysis reported a moderate positive. Across 45 defensible specifications the
+same correlation ranges from $-0.178$ to $+0.025$, a spread ten times the sampling standard error
+of any one estimate. We are unable to find a specification-independent sign. Two of the
+specifications were bugs and we fixed them. After the fixes, a position-shuffle null that our own
+plan had pre-registered and our analysis had not run absorbed what was left: what predicts
+co-firing transfer is how broadly a feature fires, not its redundancy structure. We cannot say how
+far this extends beyond ridge-$R^2$ predictors and residualised partial correlations. The
+per-feature arrays and the CPU scripts are released.
+\end{abstract}
+
+\section{Introduction}
+
+Interpretability papers increasingly test hypotheses of the form ``feature-level property $X$
+predicts feature-level property $Y$'' by computing both over a few thousand sparse-autoencoder
+features and reporting a partial correlation \citep{lan2024quantifying, paulo2025different,
+gurnee2024universal}. The pipeline is cheap, the sample size is large, and the resulting
+confidence intervals are narrow. This paper is about what those narrow intervals do not cover.
+
+Between the arrays and the reported number sit several choices. Which nuisance variables enter the
+control set. Whether the variables are rank-transformed before residualisation or after. Which
+rank statistic is applied to the residuals. None of these is a bug, and a methods section that
+states only the one chosen is not dishonest. But each choice moves the estimate, and if the
+movement is large relative to the error bar, then the error bar is answering a question nobody
+asked.
+
+We measured that movement on a study of our own. The study asks whether SAE features that are
+redundant within a single model are the ones that transfer to an independently trained model. The
+question comes from natural-latent theory \citep{wentworth2025natural}, which predicts that latents
+recoverable from disjoint parts of a system are the ones that are stable across observers. We
+believed the prediction, and our first analysis produced a moderate positive correlation
+consistent with it.
+
+Enumerating the estimator choices instead of defending one gives Figure~\ref{fig:spec}. On the
+near model pair, the correlation between redundancy and cross-model decoder geometry runs from
+$-0.178$ to $+0.025$ across 45 specifications that a referee would accept, and eight of the 45 are
+positive. The standard error of any single one of those estimates is $0.020$. The spread is ten
+standard errors wide. Across all six cells of the study the spread runs from four to thirteen
+standard errors. The study was never short of data. It was short of a decision rule.
+
+Two of the 45 specifications turned out to be defects rather than choices, and we document both.
+One is an unfloored ridge $R^2$ that diverges for low-variance features. The other is
+residualising on raw skewed controls instead of on ranks. Both are the kind of thing that is
+invisible in a methods section and decisive in a result. Separately, our own measurement plan
+pre-registered a position-shuffle null that the headline was required to beat, and our
+confirmatory analysis did not run it. When we ran it, it absorbed the surviving positive.
+
+Negative and reliability results of this shape are scarce in interpretability. We know of a few:
+\citet{kantamneni2025sae} find that SAE probes fail to beat simple baselines,
+\citet{heap2025sparse} find that automated interpretability metrics do not distinguish trained from
+random transformers, and \citet{paulo2025different} find that SAEs trained on identical data learn
+different features. Outside machine learning the corresponding methodology is mature:
+\citet{simmons2011false} named the researcher degrees of freedom, \citet{steegen2016multiverse}
+proposed reporting every defensible analysis rather than one, and \citet{simonsohn2020specification}
+formalised that as the specification curve. We are applying an old tool to a new pipeline. The
+finding is that the pipeline needs it.
+
+Contributions:
+
+\begin{itemize}
+\item A specification curve over a real correlation-over-features interpretability analysis,
+      showing an estimator spread of four to thirteen sampling standard errors and one sign flip
+      (Section~\ref{sec:curve}).
+\item Two named, reproducible estimator defects, with a regression test for one and a sensitivity
+      curve quantifying the other (Section~\ref{sec:defects}).
+\item A worked case of a pre-registered null that was not enforced and that absorbs the headline
+      when it is (Section~\ref{sec:null}).
+\item An audit of our own released arrays that surfaces five further problems, including a control
+      variable that is constant on one model pair (Section~\ref{sec:audit}).
+\item The per-feature arrays and CPU scripts, so a reader can move any of these numbers themselves.
+\end{itemize}
+
+\begin{figure}[t]\centering
+\includegraphics[width=\textwidth]{fig1_spec_curve.pdf}
+\caption{Estimator choice moves the correlation further than sampling error does. Left: the 45
+estimator specifications for the near pair (GPT-2 / Pythia) and the decoder-geometry outcome,
+sorted by value. They run from $-0.178$ to $+0.025$; eight are positive. The black bar is the
+95\% confidence interval of one estimate at $N=2500$. Right: the same 45 specifications for all
+six cells of the study. The pre-registered estimator and the estimator our original harness used
+are marked. All 2500 features per pair; all specifications use the same arrays.}
+\label{fig:spec}
+\end{figure}
+
+\section{The study}
+\label{sec:study}
+
+We state the setup only far enough to make the estimator choices legible. The full configuration
+is in Appendix~\ref{app:setup}.
+
+\paragraph{The prediction.} Natural-latent theory \citep{wentworth2025natural} defines a latent
+$\Lambda$ over parts $X_1, X_2$ of a system by two conditions: mediation, $X_1 \perp X_2 \mid
+\Lambda$, and redundancy, $\Lambda$ is recoverable from each part alone. Latents satisfying both
+are argued to be approximately isomorphic across observers who agree on the observable
+distribution, hence translatable. Neither condition is new in itself: mediation is conditional
+independence with $\Lambda$ in the screening-off role of a common cause \citep{pearl2009causality},
+and redundancy is approximate recoverability in the sense of \citet{cover2006elements}, distinct
+from the redundant-information term of partial information decomposition
+\citep{williams2010nonnegative}. Read as a prediction about SAE features, it says that the most
+redundant features in one model should be the ones with counterparts in another. That is the
+prediction we set out to test. It is the vehicle for this paper, not its subject.
+
+\paragraph{The predictor.} For each SAE feature $f$ in model A, split A's residual stream into two
+halves by dimension parity and set $\mathrm{redundancy}(f) = \min(R^2_{L \to f}, R^2_{R \to f})$,
+where $R^2_{H \to f}$ is an in-sample ridge $R^2$ predicting $f$'s activation from a
+unit-variance PCA summary of the opposite half, floored at $-1$. The predictor uses model A alone
+and no other SAE feature, so it cannot be circular with a co-firing outcome.
+
+\paragraph{The outcomes.} Features are matched across models by token-level max-activation
+correlation, a third channel independent of either outcome. The matching is then read two ways.
+$U_{\text{dec}}$ is the cross-model decoder cosine after a least-squares alignment of B's decoder
+space onto A's. $U_{\text{overlap}}$ is the Jaccard overlap of the two features' top-50 activating
+context sets.
+
+\paragraph{The pairs.} GPT-2-small with Pythia-70m-deduped (near), Gemma-2-9b-it with
+Llama-3.1-8B-Instruct (far), and Mistral-7B with Llama-3.1-8B-Instruct (far). One layer and one
+public SAE per model, 2500 features scored per pair.
+
+\paragraph{The statistic.} A partial rank correlation of predictor against outcome, controlling for
+firing frequency, activation magnitude and decoder norm. Six cells: three pairs by two outcomes.
+
+That last paragraph is where this paper lives. ``A partial rank correlation, controlling for three
+nuisance variables'' does not specify a number.
+
+\section{The specification curve}
+\label{sec:curve}
+
+\subsection{The choices}
+
+Three axes, each a decision the original analysis actually faced.
+
+\emph{Residualisation.} Rank-transform the predictor, the outcome and the controls, then
+residualise the ranked predictor and outcome on the ranked controls by ordinary least squares. Or
+residualise the raw values on the raw controls and rank afterwards. Or use no controls.
+
+\emph{Final statistic.} Pearson, Spearman or Kendall $\tau_b$ on the residuals.
+
+\emph{Control subset.} Any of the eight subsets of \{frequency, magnitude, decoder norm\}.
+
+With the residualisation axis collapsing when the control set is empty, this is $7 \times 2 \times
+3 + 3 = 45$ specifications per cell and 270 in total. The pre-registered estimator is
+(ranks, Pearson, all three controls). The estimator our original harness used is
+(raw, Spearman, all three controls).
+
+\subsection{The result}
+
+Table~\ref{tab:curve} gives the range per cell. Figure~\ref{fig:spec} plots it.
+
+\begin{table}[t]\centering\small
+\begin{tabular}{llrrrrrr}
+\toprule
+Pair & Outcome & Pre-reg. & Harness & Min & Max & Range & Range / SE \\
+\midrule
+near     & decoder   & $-0.122$ & $+0.001$ & $-0.178$ & $+0.025$ & $0.203$ & $10.1$ \\
+near     & co-firing & $+0.291$ & $+0.413$ & $+0.215$ & $+0.475$ & $0.261$ & $13.0$ \\
+Gemma    & decoder   & $-0.169$ & $-0.162$ & $-0.192$ & $-0.087$ & $0.105$ & $5.3$ \\
+Gemma    & co-firing & $+0.005$ & $+0.017$ & $+0.005$ & $+0.129$ & $0.124$ & $6.2$ \\
+Mistral  & decoder   & $-0.159$ & $-0.177$ & $-0.182$ & $-0.105$ & $0.078$ & $3.9$ \\
+Mistral  & co-firing & $+0.169$ & $+0.308$ & $+0.126$ & $+0.362$ & $0.236$ & $11.8$ \\
+\bottomrule
+\end{tabular}
+\caption{Partial correlation of the redundancy score with each universality outcome, across 45
+estimator specifications per cell, $N=2500$ features per pair. SE is the analytic standard error
+of a partial rank correlation at $N=2500$ with three controls, $0.0200$. The near-pair decoder
+cell is the only one that changes sign; eight of its 45 specifications are positive.}
+\label{tab:curve}
+\end{table}
+
+Three things stand out.
+
+\paragraph{The spread is not sampling noise.} The narrowest cell spreads over four standard errors
+and the widest over thirteen. A feature bootstrap on any single specification gives a 95\%
+interval about $0.08$ wide. The near-pair decoder cell spreads over $0.20$. Collecting more
+features would shrink the interval and leave the spread untouched.
+
+\paragraph{One cell changes sign.} On the near pair the decoder correlation is negative under 37
+specifications and positive under eight. We are unable to state a specification-independent sign
+for that cell. The two far pairs are negative under all 45, which is a stronger statement than we
+could have made from the pre-registered estimator alone, and it is a statement we only get by
+running the curve.
+
+\paragraph{The control set alone is enough.} Holding residualisation and statistic at the
+pre-registered setting and varying only which controls enter:
+
+\begin{center}\small
+\begin{tabular}{lr}
+\toprule
+Control subset & near-pair decoder $\rho$ \\
+\midrule
+none                                   & $-0.022$ \\
+frequency                              & $-0.020$ \\
+magnitude                              & $-0.118$ \\
+decoder norm                           & $-0.034$ \\
+frequency + magnitude                  & $-0.171$ \\
+frequency + decoder norm               & $-0.000$ \\
+magnitude + decoder norm               & $-0.068$ \\
+frequency + magnitude + decoder norm   & $-0.122$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The same arrays, the same statistic, and the same three candidate confounds give anything from
+$-0.000$ to $-0.171$ depending on which two of the three a paper decides to name. Decoder norm is
+the most surprising entry. As Section~\ref{sec:audit} shows, it is close to constant, and it still
+moves the estimate by 2.4 standard errors.
+
+\subsection{Power was never the problem}
+
+At $N=2500$ with three controls, the standard error is $0.0200$, and the minimum detectable effect
+at 80\% power is $0.068$ at $\alpha=0.01$ and $0.083$ at $\alpha=0.001$. The decoder cells, at
+$-0.12$ to $-0.17$, clear both. Five of six cells reach the floor of a 1000-shuffle permutation
+test, that is $p < 0.001$, and survive Holm-Bonferroni correction across the six cells at
+$\alpha=0.01$; the Gemma co-firing cell does not ($p = 0.836$). The original manuscript reported
+$p = 0.001$, which is the floor of the procedure and not an estimate; $p < 0.001$ is the correct
+form.
+
+We note this because a reader might reasonably suspect the instability is small-sample noise. It
+is not. Every specification in the curve is individually well powered, and they disagree anyway.
+
+\section{Two of the specifications were defects}
+\label{sec:defects}
+
+Two entries in the curve are not choices in retrospect. They are things we got wrong. Both are
+worth naming because both are invisible from a methods section.
+
+\paragraph{An unfloored ridge $R^2$.} For a feature whose activation has a large mean and small
+residual variance, $R^2 = 1 - \mathrm{ss\_res} / \mathrm{ss\_tot}$ has a tiny denominator, so any
+imperfect fit returns a large negative number. On Gemma-scale and Llama-scale activations the mean
+redundancy $R^2$ in our harness reached about $-1.4 \times 10^5$. Those degenerate scores then
+correlate with whatever they are asked to correlate with, and the near-pair decoder cell reported
+$+0.27$. Flooring $R^2$ at $-1$ removes it. A regression test
+(\texttt{test\_harness\_bug.py}) constructs the large-mean, low-variance case, fails on the pre-fix
+path at $-3.5 \times 10^4$ and passes on the floored path.
+
+The released arrays are post-floor, so a reader cannot regenerate the $+0.27$. Rather than ask for
+trust, we measured how fragile the cell is to that class of corruption. Sending a fraction of
+features to the bottom of the predictor ranking, which is what an unfloored blow-up does under a
+rank statistic, and choosing the features by highest activation magnitude, which is the class the
+blow-up hit:
+
+\begin{center}\small
+\begin{tabular}{lrrrrr}
+\toprule
+Fraction of the 2500 features corrupted & 0 & 0.5\% & 1\% & 2\% & 5\% \\
+\midrule
+near-pair decoder $\rho$ & $-0.122$ & $-0.089$ & $-0.069$ & $-0.051$ & $-0.033$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Twelve features out of 2500 cut the coefficient by a quarter. This is a simulation of the
+mechanism on the released arrays, not a reconstruction of the historical number, and it does not
+reach $+0.27$ because the historical defect also affected the alignment step.
+
+\paragraph{Residualising on raw skewed controls.} With the floor in place, residualising raw
+predictor and raw outcome on the raw controls and then taking Spearman of the residuals gives
+$+0.001$ on the near-pair decoder cell. The rank-based partial on the identical arrays gives
+$-0.122$. The corrected near-zero that replaced the $+0.27$ was itself an artifact of the
+partialling convention. This one is fully regenerable from the release.
+
+\paragraph{The whole pilot table is one estimator away.} Our pre-registration recorded six
+non-confirmatory pilot values, including a near-pair co-firing correlation of $+0.41$ that we later
+retracted. All six are reproduced to two decimals by applying the raw-residualisation estimator to
+the released arrays: $+0.001$, $+0.413$, $-0.162$, $+0.017$, $-0.177$, $+0.308$, against
+pre-registered values of $-0.122$, $+0.291$, $-0.169$, $+0.005$, $-0.159$, $+0.169$. The retracted
+number is not a mystery. It is what these arrays give under one documented convention, and a reader
+can regenerate it.
+
+\section{The null we did not run}
+\label{sec:null}
+
+Our measurement plan pre-registered a second control, stronger than the feature-pairing permutation
+test, and our confirmatory analysis did not enforce it. For each context, permute token positions
+independently before splitting the residual stream into halves, then recompute the redundancy
+score. This preserves which contexts a feature fires in and how strongly, and destroys the
+within-context positional structure. The shuffled score therefore isolates the context-breadth
+component of redundancy. The registered standard was that the headline had to beat this null.
+
+It does not (Table~\ref{tab:null}, Figure~\ref{fig:null}). On every pair the shuffled predictor
+associates with co-firing at least as strongly as the real one, the two scores are rank-correlated
+at $0.64$ to $0.86$, and the incremental partial of redundancy given the shuffled score is
+indistinguishable from zero or negative on all three co-firing cells. The reverse incremental
+retains signal. Feature-bootstrap intervals on $|\text{real}| - |\text{null}|$ are negative on all
+three co-firing cells: near $[-0.124, -0.058]$, Gemma $[-0.099, -0.011]$, Mistral
+$[-0.072, -0.018]$. The shuffled score is the better predictor.
+
+\begin{table}[t]\centering\small
+\begin{tabular}{llrrrr}
+\toprule
+Pair & Outcome & real & shuffle null & real $\mid$ null & null $\mid$ real \\
+\midrule
+near    & co-firing & $+0.291$ & $+0.382$ & $-0.035$ & $+0.261$ \\
+Gemma   & co-firing & $+0.005$ & $+0.081$ & $-0.086$ & $+0.118$ \\
+Mistral & co-firing & $+0.169$ & $+0.213$ & $+0.017$ & $+0.133$ \\
+\midrule
+near    & decoder   & $-0.122$ & $-0.190$ & $+0.057$ & $-0.157$ \\
+Gemma   & decoder   & $-0.169$ & $-0.029$ & $-0.225$ & $+0.153$ \\
+Mistral & decoder   & $-0.159$ & $-0.253$ & $+0.044$ & $-0.204$ \\
+\bottomrule
+\end{tabular}
+\caption{The pre-registered position-shuffle null, under the pre-registered estimator and control
+set. The last two columns are incremental partials of each predictor given the other. The
+co-firing association never beats the null and retains nothing beyond it. The null column uses a
+single stored shuffle realisation, which is a limitation we discuss in
+the Limitations section.}
+\label{tab:null}
+\end{table}
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.72\textwidth]{fig3_null.pdf}
+\caption{The position-shuffled predictor tracks co-firing transfer at least as well as the real
+one on all three pairs. Destroying within-context positional structure while preserving which
+contexts a feature fires in does not weaken the association, so context breadth and not redundancy
+structure is what the co-firing correlation is measuring. $N=2500$ features per pair; one stored
+shuffle realisation.}
+\label{fig:null}
+\end{figure}
+
+The interpretation we draw, and it is an interpretation formed after the fact rather than a
+pre-registered mechanism claim, is that what predicts co-firing transfer is how broadly a feature
+fires across contexts. \citet{paulo2025different} report the same-data analogue: the latents that
+fire most often are the ones shared across seed-varied SAEs. \citet{gurnee2024universal} report the
+opposite for neurons in seed-varied GPT-2 models, where universal neurons fire sparsely and
+selectively. The tension may reflect the unit, the statistic, or the regime, and we do not resolve
+it.
+
+The decoder side behaves differently. On the Gemma pair the negative strengthens beyond the null,
+with an incremental partial of $-0.225$ and a bootstrap interval of $[-0.262, -0.184]$. On the
+other two pairs the unique component is small and of the opposite sign. We do not have an
+explanation for that difference, and Section~\ref{sec:audit} gives a reason to be cautious about
+the Gemma cell specifically.
+
+There is a lesson here that is separate from the numbers. The paper's own thesis is that a single
+undeclared choice can move a headline. Our null was a single stored draw. We caught the first
+problem and reproduced the second.
+
+\section{What survives, and under what estimator}
+\label{sec:survives}
+
+Under the single pre-registered estimator, with everything above declared:
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.72\textwidth]{fig2_forest.pdf}
+\caption{Under the pre-registered estimator, the redundancy score is weakly negatively associated
+with cross-model decoder geometry on all three pairs and positively associated with co-firing
+overlap on two. Points are partial rank correlations with 95\% feature-bootstrap intervals,
+$N=2500$ per pair; the grey band is the widest per-cell permutation null. This is one column of
+Figure~\ref{fig:spec}, not a specification-independent result.}
+\label{fig:forest}
+\end{figure}
+
+\paragraph{Decoder geometry.} Weakly negative on all three pairs, $\rho$ between $-0.17$ and
+$-0.12$, which is 1.5 to 2.9 percent of variance. Under the pre-registered estimator we do not
+find that within-model redundancy predicts cross-model decoder geometry in the direction the
+natural-latent reading suggests; we find a small association in the other direction. On the two far
+pairs the sign is stable across all 45 specifications. On the near pair it is not.
+
+\paragraph{Co-firing overlap.} Positive on the near pair ($+0.291$) and one far pair ($+0.169$),
+inside the permutation null on the other ($+0.005$). Our pre-registered acceptance criterion
+required $\rho > +0.20$ on at least two of three pairs. One pair clears it, so the criterion is not
+met. More decisively, Section~\ref{sec:null} shows the association does not beat the position
+shuffle and retains nothing beyond it.
+
+\paragraph{What we would tell a practitioner.} Do not use a within-model redundancy score as a
+cheap screen for which SAE features will transfer, at least not for decoder geometry. Treat breadth
+of firing as the first confound to rule out in any transfer-prediction claim. And do not report a
+single partial correlation over features without saying what else you could have reported.
+
+\section{An audit of our own release}
+\label{sec:audit}
+
+Releasing the per-feature arrays let us audit the arrays rather than the code. Five problems
+surfaced, three of which we did not know about when the analysis was written. We report them
+because they are the same category of failure as the two named defects, and because a paper about
+measurement reliability that hides its own is not worth much.
+
+\paragraph{One control is constant on one pair.} In the Gemma arrays, the firing-frequency column
+equals $1.0$ for all 2500 features, to machine precision. The reported analysis states that every
+correlation is partialled on frequency, magnitude and decoder norm. On that pair the frequency
+column contributes nothing: the three-control partial is $-0.1693$ and the magnitude-only partial
+is $-0.1692$. This lands on the one cell we singled out for a redundancy-specific effect.
+
+\paragraph{One control is near-constant on all three.} SAE decoder rows are unit-normalised, so
+decoder norm ranges over $2.3 \times 10^{-3}$, $2.9 \times 10^{-7}$ and $8.9 \times 10^{-4}$ on
+the three pairs. On the Gemma pair that is floating-point noise. It is still enough to move the
+near-pair estimate from $-0.171$ to $-0.122$ when added to the control set, which is the entry in
+the control-subset table above.
+
+\paragraph{A pre-registered filter was not applied.} Our frozen measure contract excluded
+always-on features, defined as firing in more than 50 percent of contexts. Measured on the released
+arrays, 3.0 percent of near-pair features, 6.5 percent of Mistral-pair features and 100 percent of
+Gemma-pair features exceed that threshold. Applied as written, the filter would have emptied the
+Gemma cell. It was not applied, and the original manuscript did not declare this.
+
+\paragraph{The co-firing outcome has a high floor.} $U_{\text{overlap}}$ takes 38 to 44 distinct
+values over 2500 features. Its minimum in all three pairs is exactly six shared contexts out of
+50, and no matched pair of features overlaps in fewer. Under independent top-50 draws from 3000
+contexts the expected overlap is $0.83$ contexts. The measure therefore sits on a large shared
+baseline, consistent with a context-popularity effect and with the position-shuffle result. We
+would not now interpret the absolute size of a co-firing correlation.
+
+\paragraph{A load-bearing control is not in the release.} Our defence against ``the decoder
+measure is dead, that is why the effect is small'' is that the measure exceeds a shuffled-decoder
+baseline in every run. No baseline value and no code that computes one is in the release, so a
+reader cannot check it. This is the gap we would close first, and the Limitations section
+says what it would cost.
+
+\section{Related work}
+
+\paragraph{Feature universality.} That independently trained networks learn overlapping features is
+widely reported \citep{olah2020zoom, towards2024universality} and, at the level of whole
+representations rather than individual features, argued for by the Platonic Representation
+Hypothesis \citep{huh2024platonic} and measured by tools such as CKA and stitching
+\citep{kornblith2019similarity}. On the SAE side \citep{bricken2023monosemanticity},
+\citet{lan2024quantifying} measure feature-space universality across models,
+\citet{thasarathan2025universal} train a single cross-model SAE that aligns concepts, and
+\citet{lindsey2024crosscoders} use crosscoders for model diffing. \citet{paulo2025different} show
+that SAEs trained on the same data learn different features, which bounds how much any single-SAE
+result can mean. We differ from all of these in asking a reliability question about the estimator
+rather than a substantive question about universality.
+
+\paragraph{Controls and illusions.} Our position-shuffle null is in the control-task lineage of
+\citet{hewitt2019control}: a statistic earns its interpretation by beating a structure-destroying
+control. The interpretability-illusion literature documents what happens when it does not
+\citep{bolukbasi2021illusion, makelov2023illusion}, and \citet{heap2025sparse} show that automated
+interpretability metrics fail to separate trained from random transformers.
+\citet{lan2024quantifying} already use a random-pairing permutation null and filter trivial
+high-frequency token features, so permutation nulls in this area are not new; what we add is that
+the stronger within-context shuffle absorbs the effect the weaker null let through.
+
+\paragraph{Specification curves.} \citet{simmons2011false} named researcher degrees of freedom.
+\citet{steegen2016multiverse} proposed reporting the whole space of defensible analyses rather than
+one, and \citet{simonsohn2020specification} formalised the specification curve. We are not aware of
+a published specification curve over an SAE feature-level correlation, and the size of the spread
+we find suggests there should be more of them.
+
+\paragraph{Negative results in interpretability.} \citet{kantamneni2025sae} are the closest analogue
+in shape: a hypothesis about SAEs that did not survive contact with simple baselines, reported as
+such. Results of this kind remain scarce, which is part of why we are reporting ours.
+
+\section*{Limitations}
+
+
+The position-shuffle null is one stored realisation. We cannot quantify variance across shuffle
+seeds from the released arrays, because doing so needs the residual-stream activations. This is
+the objection we would most want to fix, and it is cheap to fix: one harness rerun per pair with
+20 independent permutations, which reuses the cached activations and costs under ten dollars of
+cloud GPU in total.
+
+The shuffled-decoder positive control for the decoder measure is not in the release, so the claim
+that the decoder measure is alive rests on an unreleased boolean. The same rerun would fix it.
+
+Three pairs, one layer each, one public SAE per model. SAE training is unstable across seeds
+\citep{paulo2025different}, so SAE-level variance is entirely unmeasured here and may well be
+larger than the estimator variance we do measure. An estimator-variance study that ignores
+SAE-seed variance is incomplete, and this one does.
+
+The pairs are confounded. The model on which redundancy is computed is GPT-2-small (base, residual
+post, 124M), Gemma-2-9b-it (instruction tuned, residual post, 9B) and Mistral-7B (base, residual
+pre, 7B). Tuning, hook point and scale change together across the three pairs, and the partner
+model is Llama-3.1-8B-Instruct in two of three. No difference between pairs can be attributed to
+any one axis. We report within pair and do not compare across pairs.
+
+The redundancy predictor is an in-sample ridge $R^2$ on a PCA summary. It is an operational proxy
+for the recoverability condition, not the condition itself, so a null or a negative here bounds the
+proxy and not the theorem, whose guarantee requires mediation and redundancy jointly.
+
+The 45 specifications are the ones we could vary on the released arrays. Others exist that we could
+not vary: the number of PCA components, the ridge penalty, the top-$K$ of the overlap measure, the
+matching channel, the feature filter. The spread we report is therefore a lower bound on the spread
+a determined analyst could produce.
+
+The bootstrap resamples individual features rather than the co-firing-clustered groups our plan
+specified, so the intervals may be anti-conservative under dependence between co-firing features.
+
+The two defects we document are specific to ridge-$R^2$ predictors and residualised partial
+correlations. We cannot say whether other estimator families in interpretability harbour analogous
+failure modes; we would guess that they do, and that is a guess.
+
+All findings are correlational. We make no causal claim.
+
+\section*{Reproducibility}
+
+
+The measure definitions, analysis plan and acceptance thresholds were frozen and committed before
+the blocking runs. Every number in this paper regenerates from the released per-feature arrays on
+a CPU: \texttt{recompute\_partials.py} for the pre-registered cells and the shuffle null,
+\texttt{spec\_curve.py} for the specification curve, \texttt{contamination\_curve.py} for the
+corruption sensitivity, \texttt{power\_and\_spread.py} for the standard errors and the
+multiple-comparison bookkeeping, \texttt{robustness\_checks.py} for the split-half and Kendall
+checks, \texttt{test\_harness\_bug.py} for the ridge floor, and \texttt{make\_figs\_v2.py} for the
+figures. The figure scripts recompute their own inputs so that a figure cannot drift from a table.
+The arrays hold, per feature: the redundancy score and its position-shuffled counterpart, both
+universality outcomes, firing frequency, activation magnitude, decoder norm and the aligned decoder
+row. Values that this release cannot regenerate are named in Section~\ref{sec:audit}: the pre-floor
+redundancy scores and the shuffled-decoder baseline.
+
+\section*{Ethics}
+
+This work uses publicly released pretrained language models (GPT-2, Pythia, Gemma-2-9b,
+Llama-3.1-8B, Mistral-7B), their publicly released sparse autoencoders, and a public corpus
+sample. There are no human subjects, no private or personally identifying data, and no new model
+weights. One safety-relevant note: predictors of which interpretability findings transfer across
+models bear on the argument that auditing a small model informs claims about a larger one. Our
+result is that such predictors can be artifacts of the estimator, so transfer claims should come
+with a frozen, reproducible measurement pipeline and, we would now add, a specification curve.
+
+\bibliographystyle{plainnat}
+\bibliography{estimator_choice}
+
+\appendix
+
+\section{Experimental setup}
+\label{app:setup}
+
+Activations come from 3000 contexts of 64 tokens drawn from a public Pile sample
+(\texttt{NeelNanda/pile-10k}), streamed identically for both models of a pair. Models and SAEs are
+all publicly released, loaded through \texttt{sae\_lens} and \texttt{transformer\_lens}.
+
+\emph{Near pair:} GPT-2-small, layer 8 residual post (\texttt{gpt2-small-resid-post-v5-32k}) with
+Pythia-70m-deduped, layer 4 residual post (\texttt{pythia-70m-deduped-res-sm}).
+\emph{Gemma pair:} Gemma-2-9b-it, layer 20 residual post, width 16k canonical
+(\texttt{gemma-scope-9b-it-res-canonical}) with Llama-3.1-8B-Instruct, layer 16 residual post,
+Llama-Scope $8\times$ (\texttt{llama\_scope\_lxr\_8x}, \texttt{l16r\_8x}).
+\emph{Mistral pair:} Mistral-7B, layer 16 residual pre (\texttt{mistral-7b-res-wg}) with the same
+Llama-3.1-8B SAE.
+
+Per pair, the 2500 most active model-A features are scored. Redundancy is
+$\min(R^2_{L \to f}, R^2_{R \to f})$, each $R^2$ a closed-form in-sample ridge fit
+($\lambda = 1$) predicting the feature's per-context half-mean activation from a 48-dimensional PCA
+summary of the opposite residual-stream half, halves taken by dimension parity, floored at $-1$.
+Cross-model matching is by token-level max-activation correlation. $U_{\text{overlap}}$ is the
+Jaccard overlap of top-50 context sets; the released values lie exactly on the grid $k/(100-k)$
+for integer $k$, which confirms this from the arrays alone. $U_{\text{dec}}$ is the aligned
+cross-model decoder cosine. The position-shuffle null permutes token positions independently per
+context before the half split, and one realisation is stored. Bootstrap and permutation sizes are
+1000 throughout.
+
+\section{Specification curve details}
+\label{app:curve}
+
+The 45 specifications per cell are the product of the residualisation axis (ranks, raw), the final
+statistic (Pearson, Spearman, Kendall $\tau_b$) and the seven non-empty control subsets, plus the
+three no-control specifications where the residualisation axis collapses. All 270 values are in
+\texttt{results/spec\_curve.json}.
+
+The near-pair decoder cell is the only sign flip. Its extremes are $-0.178$
+(ranks, Spearman, frequency + magnitude) and $+0.025$ (raw, Pearson, magnitude + decoder norm).
+Six of the eight positive specifications residualise on raw values. The other two residualise on
+ranks with a control set that includes decoder norm but not magnitude, and both are within $0.004$
+of zero. Rank-residualised specifications on that cell range from $-0.178$ to $+0.004$;
+raw-residualised ones range from $-0.035$ to $+0.025$. Dropping magnitude from the control set is
+what erases the effect; the residualisation convention is what can invert it.
+
+\end{document}

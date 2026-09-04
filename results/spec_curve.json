@@ -1,0 +1,2162 @@
+[
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "none",
+  "how": "none",
+  "stat": "pearson",
+  "rho": -0.0219258257913186
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "none",
+  "how": "none",
+  "stat": "spearman",
+  "rho": -0.0345612510737335
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "none",
+  "how": "none",
+  "stat": "kendall",
+  "rho": -0.022553535008068393
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.020048664661818486
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.021613711251437944
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.013740889333907554
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.009775821288139724
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.03451585343448309
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.022283206762465417
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.11814227680980667
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.12545270410443266
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.08281840736294517
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.01766423510942934
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.0254683824429412
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.016048659463785517
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.033736983750203245
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.02931856366697019
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.019500280112044816
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.03272324441419906
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.033831661861065905
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.022497318927571033
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.17094408691009663
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.17833699979791998
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.11852356942777112
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.012388371645173469
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.024934001813440295
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.015800880352140858
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.00016504010419801323
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.0037730886036941775
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.00269483793517407
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.018979494050156517
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.024660629865700782
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.01620168067226891
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.0682596114474676
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.07001045113767218
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.0459921568627451
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.024591246735955054
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.000490743630518981
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.00012805122048819529
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.12192136185029975
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.1222180711388914
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.08156990796318528
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.019901634583836196
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.0008811549569847933
+ },
+ {
+  "pair": "near",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.0007708683473389356
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "none",
+  "how": "none",
+  "stat": "pearson",
+  "rho": 0.4447754826084707
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "none",
+  "how": "none",
+  "stat": "spearman",
+  "rho": 0.42578835529931053
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "none",
+  "how": "none",
+  "stat": "kendall",
+  "rho": 0.30853650143074746
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.45194497653681376
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.4512225870828749
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.3208789277796692
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.456442108130243
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.4396607801872588
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.31323513443056467
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.3291046131871325
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.33485070087211216
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.2351827130852341
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.4388182762876409
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.39942452368392384
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.2829983193277311
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.43089714176803134
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.4313899391023903
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.30436814725890354
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.44342531150072795
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.42286693409070947
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.2996142456982793
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.2877533247202762
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.3081244955079193
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.21482192877150863
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.4337174575722213
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.4063623633859782
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.29007635054021613
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.47118526155281
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.4753442895590864
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.3376019207683073
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.4555933790768466
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.4379344291095087
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.312396318527411
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.33585068998445833
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.3383673987787838
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.23619751900760305
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.44129603759555985
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.41222932829269254
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.29205986394557826
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.29110082132317655
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.31057485365997667
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.21638671468587437
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.4361433874919782
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.4128110430737669
+ },
+ {
+  "pair": "near",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.29408947579031613
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "none",
+  "how": "none",
+  "stat": "pearson",
+  "rho": -0.10447914101125079
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "none",
+  "how": "none",
+  "stat": "spearman",
+  "rho": -0.1917918458389357
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "none",
+  "how": "none",
+  "stat": "kendall",
+  "rho": -0.12974354197064839
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.19179184583893566
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.1917918458389357
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.12974354197064839
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.10447914101125079
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.1917918458389357
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.12974354197064839
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.16924689275301047
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.170726756020281
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.11587931172468988
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.08652904526463472
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.16227997655679627
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.11093205282112845
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.19180299653825852
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.19169229460676712
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.12967234893957583
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.10464581918262272
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.19070733598517378
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.12887138855542218
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.16924689275301047
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.170726756020281
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.11587931172468988
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.08652904526463472
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.16227997655679627
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.11093205282112845
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.19180299653825852
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.19169229460676712
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.12967234893957583
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.10464581918284721
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.19070733598517378
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.12887138855542218
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.16926526598459593
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.1706589546654328
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.11584537815126052
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.08670858065036081
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.16186015389762468
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.11066634653861544
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.16926526598459601
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.1706589546654328
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.11584537815126052
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.08670858065097632
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.16186015389762468
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.11066634653861544
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "none",
+  "how": "none",
+  "stat": "pearson",
+  "rho": 0.12869592690807702
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "none",
+  "how": "none",
+  "stat": "spearman",
+  "rho": 0.02006265107545996
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "none",
+  "how": "none",
+  "stat": "kendall",
+  "rho": 0.01700023357711035
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.02006265107545996
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.02006265107545996
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.01700023357711035
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.12869592690807702
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.02006265107545996
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.01700023357711035
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.005037202463667989
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.007322897299663568
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.00809155662264906
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.12651113907945755
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.014726781748285081
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.013211044417767107
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.020174651452046072
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.02000441331270613
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.01675998399359744
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.12900531328994355
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.019960006777601087
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.01667611044417767
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.005037202463667988
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.007322897299663568
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.00809155662264906
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.1265111390794576
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.014726781748285081
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.013211044417767107
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.020174651452046076
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.02000441331270613
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.01675998399359744
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.12900531329001996
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.019960006777601087
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.01667611044417767
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.005109759520364584
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.007435592101694737
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.00828171268507403
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.12680101924972048
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.01661674480267917
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.014764945978391357
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.005109759520364578
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.007435592101694737
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.00828171268507403
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.12680101925047715
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.01661674480267917
+ },
+ {
+  "pair": "gemma",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.014764945978391357
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "none",
+  "how": "none",
+  "stat": "pearson",
+  "rho": -0.15262068410263768
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "none",
+  "how": "none",
+  "stat": "spearman",
+  "rho": -0.18179962634163374
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "none",
+  "how": "none",
+  "stat": "kendall",
+  "rho": -0.12304567357940287
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.16362655275098734
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.16360734188917472
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.11066634653861544
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.14971674004920885
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.18203397344543576
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.12380376150460184
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.14992346689479877
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.15523117850098858
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.10461272509003602
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.14104017306051206
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.17707054532328728
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.12002368947579031
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.1818051102504878
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.18136057096969138
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.12270956382553021
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.15284961869556174
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.18210724680115953
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.12318719487795118
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.15895507751825527
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.16745945616951302
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.11293349339735895
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.140350809252749
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.17857312220369956
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.12118127250900361
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.16400544311351348
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.16353399019743844
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.11053957583033214
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.14993716904458576
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.18218401071744175
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.12383257302921169
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.14974143748501714
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.1551569167291067
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.10456150460184074
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.14126456062165896
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.1757751042200167
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.1190485794317727
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": -0.15877019925739605
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": -0.16731816949090716
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": -0.1128937975190076
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": -0.14058562547437461
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": -0.17735971656955465
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_dec",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": -0.12033997599039617
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "none",
+  "how": "none",
+  "stat": "pearson",
+  "rho": 0.13869884997842974
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "none",
+  "how": "none",
+  "stat": "spearman",
+  "rho": 0.3211137027823489
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "none",
+  "how": "none",
+  "stat": "kendall",
+  "rho": 0.22740338025083878
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.35662603532333176
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.3624882277931345
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.25300586170192846
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.1342155778612639
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.3216779938550262
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.22295877441112924
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.19622822895021289
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.20491955457912875
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.14306906762705082
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.1287584655481004
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.2938849514695923
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.20157246898759507
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.3193419789032735
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.31981529750644766
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.22045554221688676
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.13827048298887704
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.3193240884678542
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.22034029611844738
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.16895055362970826
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.18643001997280323
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.1284033613445378
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.1271478393582972
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.3045580204412833
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.21038111244497798
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.35514739653144084
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.36172088629134186
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.252816006402561
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.13383066969775023
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.32287200941952154
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.22423945578231294
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.1961847293252226
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.20469626775940286
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.142834093637455
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.12764114042660968
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.30909809847969577
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.2140408163265306
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "pearson",
+  "rho": 0.16898848394530935
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "spearman",
+  "rho": 0.1864051275528204
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "ranks",
+  "stat": "kendall",
+  "rho": 0.1284385754301721
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "pearson",
+  "rho": 0.12613865270099
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "spearman",
+  "rho": 0.30761575840252137
+ },
+ {
+  "pair": "mistral",
+  "meas": "U_overlap",
+  "controls": "freq+mag+dec_norm",
+  "how": "raw",
+  "stat": "kendall",
+  "rho": 0.21364129651860744
+ }
+]

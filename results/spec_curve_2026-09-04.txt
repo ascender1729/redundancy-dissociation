@@ -1,0 +1,25 @@
+Specification curve: 270 specifications total, 45 per cell
+========================================================================================================
+pair      measure      frozen  harness      min      max    range    n>0    n<0
+near      U_dec        -0.122   +0.001   -0.178   +0.025    0.203      8     37
+near      U_overlap    +0.291   +0.413   +0.215   +0.475    0.261     45      0
+gemma     U_dec        -0.169   -0.162   -0.192   -0.087    0.105      0     45
+gemma     U_overlap    +0.005   +0.017   +0.005   +0.129    0.124     45      0
+mistral   U_dec        -0.159   -0.177   -0.182   -0.105    0.078      0     45
+mistral   U_overlap    +0.169   +0.308   +0.126   +0.362    0.236     45      0
+
+Cells where specifications of both signs exist on the same arrays:
+  near      U_dec       -0.178 [ranks/spearman/freq+mag]  to  +0.025 [raw/pearson/mag+dec_norm]
+
+How much each axis moves the near-pair decoder cell (holding the others at the frozen setting):
+   statistic=pearson   ranks=-0.122  raw=+0.020
+   statistic=spearman  ranks=-0.122  raw=+0.001
+   statistic=kendall   ranks=-0.082  raw=+0.001
+   controls=none                 (ranks/pearson) = -0.022
+   controls=freq                 (ranks/pearson) = -0.020
+   controls=mag                  (ranks/pearson) = -0.118
+   controls=dec_norm             (ranks/pearson) = -0.034
+   controls=freq+mag             (ranks/pearson) = -0.171
+   controls=freq+dec_norm        (ranks/pearson) = -0.000
+   controls=mag+dec_norm         (ranks/pearson) = -0.068
+   controls=freq+mag+dec_norm    (ranks/pearson) = -0.122

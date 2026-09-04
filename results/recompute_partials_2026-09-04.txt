@@ -1,0 +1,44 @@
+Gate 3: partial Spearman rho(redundancy, U | freq,mag,decnorm), permutation null (N=1000), bootstrap 95% CI
+============================================================================================================
+
+GPT-2/Pythia (near)
+  U_dec      rho=-0.122  null95=[-0.040,+0.040]  perm_p=0.0010  boot95=[-0.163,-0.081]  -> OUTSIDE null (real effect)
+  U_overlap  rho=+0.291  null95=[-0.040,+0.037]  perm_p=0.0010  boot95=[+0.250,+0.331]  -> OUTSIDE null (real effect)
+
+Gemma-9b/Llama-8b (far)
+  U_dec      rho=-0.169  null95=[-0.043,+0.039]  perm_p=0.0010  boot95=[-0.208,-0.128]  -> OUTSIDE null (real effect)
+  U_overlap  rho=+0.005  null95=[-0.038,+0.040]  perm_p=0.8362  boot95=[-0.033,+0.047]  -> inside null (not distinguishable)
+
+Mistral-7b/Llama-8b (far)
+  U_dec      rho=-0.159  null95=[-0.037,+0.036]  perm_p=0.0010  boot95=[-0.200,-0.119]  -> OUTSIDE null (real effect)
+  U_overlap  rho=+0.169  null95=[-0.038,+0.039]  perm_p=0.0010  boot95=[+0.130,+0.209]  -> OUTSIDE null (real effect)
+
+Block 4: position-shuffle null and incremental partials (controls: freq, mag, dec_norm)
+============================================================================================================
+
+GPT-2/Pythia (near)  corr(redundancy, shuffled)=+0.862
+  U_overlap  real=+0.291  shuffle-null=+0.382 (DOES NOT beat null)  red|null=-0.035  null|red=+0.261
+  U_dec      real=-0.122  shuffle-null=-0.190 (DOES NOT beat null)  red|null=+0.057  null|red=-0.157
+
+Gemma-9b/Llama-8b (far)  corr(redundancy, shuffled)=+0.638
+  U_overlap  real=+0.005  shuffle-null=+0.081 (DOES NOT beat null)  red|null=-0.086  null|red=+0.118
+  U_dec      real=-0.169  shuffle-null=-0.029 (beats null)  red|null=-0.225  null|red=+0.153
+
+Mistral-7b/Llama-8b (far)  corr(redundancy, shuffled)=+0.807
+  U_overlap  real=+0.169  shuffle-null=+0.213 (DOES NOT beat null)  red|null=+0.017  null|red=+0.133
+  U_dec      real=-0.159  shuffle-null=-0.253 (DOES NOT beat null)  red|null=+0.044  null|red=-0.204
+
+Block 4b: bootstrap 95% CIs (n=1000) for incremental partials and real-minus-null difference
+============================================================================================================
+
+GPT-2/Pythia (near)
+  U_overlap  red|null CI=[-0.084,+0.014]  null|red CI=[+0.207,+0.311]  |real|-|null| CI=[-0.124,-0.058]
+  U_dec      red|null CI=[+0.019,+0.092]  null|red CI=[-0.195,-0.117]  |real|-|null| CI=[-0.092,-0.043]
+
+Gemma-9b/Llama-8b (far)
+  U_overlap  red|null CI=[-0.124,-0.048]  null|red CI=[+0.081,+0.159]  |real|-|null| CI=[-0.099,-0.011]
+  U_dec      red|null CI=[-0.262,-0.184]  null|red CI=[+0.112,+0.190]  |real|-|null| CI=[+0.110,+0.165]
+
+Mistral-7b/Llama-8b (far)
+  U_overlap  red|null CI=[-0.020,+0.051]  null|red CI=[+0.093,+0.173]  |real|-|null| CI=[-0.072,-0.018]
+  U_dec      red|null CI=[+0.005,+0.081]  null|red CI=[-0.243,-0.164]  |real|-|null| CI=[-0.123,-0.066]
